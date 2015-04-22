@@ -1,0 +1,203 @@
+<div class="pageWidth container">
+	<div class="detail_search row">
+     <!--    <div class="col-md-4">
+            <p class="logo mini_logo"><span>uumai</span> 悠悠买</p>
+        </div> -->
+        <div class="col-md-2">
+            <div class="dropdown ">
+                <a class="main_menu" href="javascript:;" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                    全部商品分类
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="https://twitter.com/fat">数码相机 
+                            <span class="glyphicon glyphicon-menu-right"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/fat">数码摄像机 
+                            <span class="glyphicon glyphicon-menu-right"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/fat">液晶电视 
+                            <span class="glyphicon glyphicon-menu-right"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/fat">冰箱 
+                            <span class="glyphicon glyphicon-menu-right"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/fat">空调 
+                            <span class="glyphicon glyphicon-menu-right"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/fat">洗衣机 
+                            <span class="glyphicon glyphicon-menu-right"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/fat">主板 
+                            <span class="glyphicon glyphicon-menu-right"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/fat">显卡 
+                            <span class="glyphicon glyphicon-menu-right"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/fat">内存 
+                            <span class="glyphicon glyphicon-menu-right"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/fat">固态硬盘
+                            <span class="glyphicon glyphicon-menu-right"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/fat">CPU 
+                            <span class="glyphicon glyphicon-menu-right"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/fat">液晶显示器 
+                            <span class="glyphicon glyphicon-menu-right"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/fat">手机 
+                            <span class="glyphicon glyphicon-menu-right"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/fat">笔记本 
+                            <span class="glyphicon glyphicon-menu-right"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="搜一搜" ng-model="searchWords">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="search" ng-click="searchGoods()">GO</button>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- sort buttons -->
+        <div class="col-md-6">
+            <input type="hidden" ng-model="predicate" ng-init="predicate='comprehensive'" >
+            <div class="btn-group">
+                <button class="btn btn-default" ng-class="setSelectedClass(btn.type)" ng-repeat="btn in goodsOrder" ng-click="resetOrder(btn.type)" ng-bind="btn.name"></button>
+            </div>
+        </div>
+        
+        <!-- filter && view port -->
+        <div class="col-md-6">
+            <div class="form-inline alignRight">
+                <label class="form_label">高级过滤：</label>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="highFilter"> 直邮中国
+                    </label>
+                </div>
+                <label class="form_label">低级过滤：</label>
+                <select class="form-control" ng-model="lowFilter">
+                    <option value="null">空</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <label class="form_label">视图切换：</label>
+                <div class="iconbtn-group">
+                    <a class="btn icon-btn" ng-click="showGoods('block')" ng-class="setView('block')"><span class="glyphicon glyphicon-th"></span></a>
+                    <a class="btn icon-btn" ng-click="showGoods('list')" ng-class="setView('list')"><span class="glyphicon glyphicon-align-justify"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- goods Block -->
+    <div class="goodList row" ng-show="showBlock">
+        <div class="col-sm-6 col-md-4 col-lg-3" ng-repeat="list in goodBlocks.items | orderBy:predicate">
+            <div class="thumbnail">
+                <a href="#/detail/{{list.pid}}" target="_blank">
+                    <img ng-src="{{list.thumbnail}}" alt="">
+                </a>
+                <div class="caption">
+                    <p class="listGoodDescrib">
+                        <a href="#/detail/{{list.pid}}" ng-bind="list.name"></a>
+                    </p>
+                    <p ng-bind="list.price | currency:'¥'" class="goods_price"></p>
+                    <section class="grayDescrib">
+                        <p class="listSales">已售<span ng-bind="list.sales"></span>件</p>
+                        <p class="listComment"><span class="listComments" ng-bind="list.comments"></span>条评论</p>    
+                    </section>
+                    <!-- <p>综合排名：<span ng-bind="list.comprehensive"></span></p> -->
+                    <p class="listSource" ng-bind="list.logo"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- good List -->
+    <div class="goodList row" ng-show="showList">
+        <table class="table table-striped table-hover line-link" id="goodList">
+            <thead>
+                <th>商城</th>
+                <th>图片</th>
+                <th>商品名称</th>
+                <th>价格</th>
+                <th>直邮中国</th>
+                <th>库存</th>
+                <th>更新时间</th>
+                <th>评论数</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="list in goodBlocks.items | orderBy:predicate">
+                    <td ng-bind="list.logo" class="logoColor"></td>
+                    <td>
+                       <a href="#/detail/{{list.pid}}" target="_blank">
+                            <img ng-src="{{list.thumbnail}}" alt="">
+                       </a> 
+                    </td>
+                    <td><a href="#/detail/{{list.pid}}"  target="_blank" ng-bind="list.name"></a></td>
+                    <td ng-bind="list.price | currency:'¥'" class="priceColor"></td>
+                    <td ng-bind="list.directPost"></td>
+                    <td ng-bind="list.storage"></td>
+                    <td ng-bind="list.updateTime"></td>
+                    <td ng-bind="list.comments"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- paging -->
+    <div class="paging">
+        <paging
+            page="currentPage" 
+            page-size="pageSize" 
+            total="total"
+            adjacent="{{adjacent}}"
+            dots="{{dots}}"
+            scroll-top="{{scrollTop}}" 
+            hide-if-empty="{{hideIfEmpty}}"
+            ul-class="{{ulClass}}"
+            active-class="{{activeClass}}"
+            disabled-class="{{disabledClass}}"
+            show-prev-next="{{showPrevNext}}"
+            paging-action="DoCtrlPagingAct(page, pageSize)">
+        </paging>   
+    </div>
+</div>

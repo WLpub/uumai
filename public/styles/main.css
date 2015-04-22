@@ -1,0 +1,29 @@
+/* common style */
+* { padding:0; margin:0; }
+body { font:12px/1.25em "Microsoft YaHei"; color:#3e3e3e;}
+form, input { font:12px/1.25em "Microsoft YaHei"; border:none;background:none;}
+li, dt, dd { list-style:none; }
+h1,h2, h3, h4, h5 {font:12px/1.25em "Microsoft YaHei"; font-weight:normal; }
+a { cursor: pointer;color:#256EB1; text-decoration:none; }
+a:hover,a:focus { color:#ff6400; text-decoration:none; text-decoration: underline;}
+img { border:none;}
+strong { font-weight:normal; }
+em { font-style: normal; }
+p { text-indent:0; }
+
+.noMbottom{margin-bottom: 0;}
+.my-btn{border: none;border-radius: 0px;margin: 5px 0;padding: 5px 20px;}
+
+body{position: relative;font-family: Arial,Verdana;}
+.pageWidth{width: 80%; max-width: 1000px;}
+
+/* fix btn active bug */
+.btn{
+	box-shadow: none!important;
+}
+.iconbtn-group{display: inline-block;}
+.icon-btn{font-size: 22px;color:#7B7B7B;display: inline-block; padding: 0 5px;}
+.icon-btn:hover{color:#d58512;}
+.orange{color:#ec971f;}
+.alignRight{text-align: right;}
+.form_label{margin-left: 15px;}
