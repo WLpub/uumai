@@ -7,6 +7,7 @@ var table = db.collection("AmazonProduct");
 
 exports.findAll = function(req, res , next){
 	res.setHeader('Access-Control-Allow-Origin','*');
+	console.log(req.query);
 	table.find().limit(20).sort({postedOn : -1} , function(err , success){
 		console.log('Response success '+success);
 		console.log('Response error '+err);
