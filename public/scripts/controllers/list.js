@@ -69,45 +69,36 @@
 		  *
 		  */
 		$scope.DoCtrlPagingAct = function(page, pageSize){
-			//var url = 'data/list.json';
-			var url = '/list';
+			
 			$scope.currentPage = page;
 			$scope.pageSize = pageSize;
-			var params = {
-				searchWords: $rootScope.searchWords,
-				filterText : $scope.highFilter + " " +$scope.lowFilter,
-				orderByText : $scope.predicate,
-			};
-			getPageData(url, params);
+			getPageData();
 		}
 
 		//search new good
 		$scope.searchGoods = function(){
 			$rootScope.searchWords = $scope.searchWords;
 			//getPageData('data/list.json', [{
-			getPageData('/list', {
-				searchWords : $rootScope.searchWords
-			});
+			getPageData();
 		}
 
 		//filter && loading Page
 		$scope.highFilter = false;
 		$scope.lowFilter = null;
-		$scope.$watch('highFilter + lowFilter', function(){
-			//getPageData('data/list.json',[{
-			getPageData('/list',{
-				searchWords : $rootScope.searchWords,
-				filterText : $scope.highFilter + " " +$scope.lowFilter,
-				orderByText : $scope.predicate
-			});
-		});
+		//$scope.predicate = 'comprehensive';
+		$scope.$watch('highFilter + lowFilter + predicate', function(){getPageData();});
 
 		// http request for getting page date
-		function getPageData(url, params){
+		var getPageData = function(){
 			$http({
 				method: 'GET',
-				url: url,
-				params: params
+				url: '/list',
+				params: {	searchWords : $rootScope.searchWords||'',
+							filterText : $scope.lowFilter||'',
+							mailToChina: $scope.highFilter?1:0,
+							orderByText : $scope.predicate,
+							currentPage: $scope.currentPage||1
+						}
 			}).success(
 				function(data){
 					$scope.goodBlocks = data;
@@ -115,10 +106,10 @@
 					
 					// init paging
 					$scope.searchWords = $rootScope.searchWords;
-					if(!!$scope.pageSize){
-						$scope.pageSize = 16;
+					if(!!!$scope.pageSize){
+						$scope.pageSize = 20;
 					}
-					if(!!$scope.currentPage){
+					if(!!!$scope.currentPage){
 						$scope.currentPage = 1;
 					}
 					$scope.dots = "...";
@@ -131,7 +122,7 @@
 					$scope.showPrevNext = false;
 				}
 			);
-		}
+		};
 
 		// event listener
 		$scope.handleEvent = function (e) {
