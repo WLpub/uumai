@@ -6,17 +6,65 @@ var table = db.collection("AmazonProduct");
 
 
 exports.findAll = function(req, res){
+
+	//http://localhost:8080/list?currentPage=1&filterText=&mailToChina=0&orderByText=comprehensive&searchWords=xxx
+
 	res.setHeader('Access-Control-Allow-Origin','*');
-	console.log(req.query);
-	table.find().limit(20).sort({postedOn : -1} , function(err , success){
-		console.log('Response success '+success);
-		console.log('Response error '+err);
-		if(success){
-			res.status(200).send('{\"total\": 21,\"items\": [	{\"pid\" : 1,\"thumbnail\": \"http://img11.360buyimg.com/n7/jfs/t277/193/1005339798/768456/29136988/542d0798N19d42ce3.jpg\",\"logo\": \"1号店\",\"name\": \"苹果Apple 【1号海购】港版 iPhone 6 plus 4G手机 5.5英寸 A1524 GSM/WCDMA/TD-LTE(金色)\",\"price\": 5469.00,\"source\": \"第三方\",\"sales\" : 400,\"directPost\": \"是\",\"storage\": 200,\"updateTime\": \"2小时\",\"comments\" : 1,\"comprehensive\":12}]}');
-		}else{
-		}
+
+	var sql={'title':{$regex:req.query.searchWords}};
+	
+	if(req.query.mailToChina==1)
+		sql.shiptochina="ship to china";
+ 
+  
+	// var jsonString = "{\"title\": {\"$regex\": \" "+req.query.searchWords+"\"}}";
+	// var jsonObj = JSON.parse(jsonString);
+ 
+  	
+ 	var page=(req.query.currentPage-1)*20;
+
+   	table.find(sql).count(function (e, count) {
+
+ 	        var ret={};
+	       	ret.total=count;
+	       	ret.items=[];
+	       	table.find(sql).limit(20).skip(page, function(err, docs) { 
+
+	       		if(docs){
+	       			docs.forEach(function(doc) {
+ 
+ 		 			var record={};
+		 			record.pid=doc._id;
+		 			record.thumbnail=doc.imgsrc;
+		 			record.name=doc.title;
+		 			record.price=doc.price.substring(1);
+
+
+		            ret.items.push(record);
+		            });
+
+		            res.status(200).send(ret);
+	       		}
+
+ 		     });
+ 
+ 		     
+
+ 	});
+
+
+ 
+
+ 	// res.setHeader('Access-Control-Allow-Origin','*');
+	// console.log(req.query);
+	// table.find().limit(20).sort({postedOn : -1} , function(err , success){
+	// 	console.log('Response success '+success);
+	// 	console.log('Response error '+err);
+	// 	if(success){
+	// 	}else{
+	// 	}
 		
-	});
+	// });
 	
 }
 
