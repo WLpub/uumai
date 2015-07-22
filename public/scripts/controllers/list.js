@@ -71,13 +71,13 @@
 		$scope.DoCtrlPagingAct = function(page, pageSize){
 			//var url = 'data/list.json';
 			var url = '/list';
-			var params = [{
+			$scope.currentPage = page;
+			$scope.pageSize = pageSize;
+			var params = {
 				searchWords: $rootScope.searchWords,
 				filterText : $scope.highFilter + " " +$scope.lowFilter,
 				orderByText : $scope.predicate,
-				page: page,
-				pageSize: pageSize
-			}]
+			};
 			getPageData(url, params);
 		}
 
@@ -85,9 +85,9 @@
 		$scope.searchGoods = function(){
 			$rootScope.searchWords = $scope.searchWords;
 			//getPageData('data/list.json', [{
-			getPageData('/list', [{
+			getPageData('/list', {
 				searchWords : $rootScope.searchWords
-			}]);
+			});
 		}
 
 		//filter && loading Page
@@ -95,11 +95,11 @@
 		$scope.lowFilter = null;
 		$scope.$watch('highFilter + lowFilter', function(){
 			//getPageData('data/list.json',[{
-			getPageData('/list',[{
+			getPageData('/list',{
 				searchWords : $rootScope.searchWords,
 				filterText : $scope.highFilter + " " +$scope.lowFilter,
 				orderByText : $scope.predicate
-			}]);
+			});
 		});
 
 		// http request for getting page date
@@ -111,11 +111,16 @@
 			}).success(
 				function(data){
 					$scope.goodBlocks = data;
-					$scope.searchWords = $rootScope.searchWords;
-					// init paging
-					$scope.currentPage = data.currentPage;
-					$scope.pageSize = data.pageSize;
 					$scope.total = data.total;
+					
+					// init paging
+					$scope.searchWords = $rootScope.searchWords;
+					if(!!$scope.pageSize){
+						$scope.pageSize = 16;
+					}
+					if(!!$scope.currentPage){
+						$scope.currentPage = 1;
+					}
 					$scope.dots = "...";
 					$scope.adjacent = 2;
 					$scope.ulClass = "pagination";
