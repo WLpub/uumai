@@ -43,7 +43,7 @@ exports.findAll = function(req, res){
 		            ret.items.push(record);
 		            });
 
-		            res.status(200).send(ret);
+		            res.status(200).send(ret).end();
 	       		}
 
  		     });
