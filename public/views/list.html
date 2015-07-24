@@ -95,13 +95,12 @@
 
     <div class="row">
         <!-- sort buttons -->
-        <div class="col-md-6">
+        <div class="col-md-5">
             <input type="hidden" ng-model="predicate" ng-init="predicate='comprehensive'" >
             <div class="btn-group">
                 <button class="btn btn-default" ng-class="setSelectedClass(btn.type)" ng-repeat="btn in goodsOrder" ng-click="resetOrder(btn.type)" ng-bind="btn.name"></button>
             </div>
-        </div>
-        
+        </div>        
         <!-- filter && view port -->
         <div class="col-md-6">
             <div class="form-inline alignRight">
@@ -127,13 +126,16 @@
             </div>
         </div>
     </div>
-
+    <div class="row">
+        <br/>
+     <div class="col-md-2"><div class="form-inline alignLeft" ng-bind="'第'+currentPage+'页 ,共'+total+'条'"></div></div>
+    </div>
     <!-- goods Block -->
     <div class="goodList row" ng-show="showBlock">
         <div class="col-sm-6 col-md-4 col-lg-3" ng-repeat="list in goodBlocks.items | orderBy:predicate">
             <div class="thumbnail">
                 <a href="#/detail/{{list.pid}}" target="_blank">
-                    <img ng-src="{{list.thumbnail}}" alt="">
+                    <img ng-src="{{list.image||list.thumbnail}}" alt="">
                 </a>
                 <div class="caption">
                     <p class="listGoodDescrib">
@@ -182,7 +184,9 @@
             </tbody>
         </table>
     </div>
-
+    <div class="well" ng-show="showFeedBack">
+        <h2 class="text-center">没有结果，点击<a href="/feedback/{{searchWords}}">提交反馈</a></h2>
+    </div>
     <!-- paging -->
     <div class="paging">
         <paging

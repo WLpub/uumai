@@ -37,7 +37,7 @@ exports.findAll = function(req, res){
 		 			record.pid=doc._id;
 		 			record.thumbnail=doc.imgsrc;
 		 			record.name=doc.title;
-		 			record.price=doc.price.substring(1);
+		 			record.price=Number(!!doc.price?doc.price.substring(1):'');
 
 
 		            ret.items.push(record);
