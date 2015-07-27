@@ -17,10 +17,10 @@
 			type: "price",
 			name: "价格"
 		},{
-			type: "sales",
-			name: "销量"
+			type: "star",
+			name: "客户评级"
 		},{
-			type: "comments",
+			type: "customerreviews",
 			name: "评论数"
 		}];
 		$scope.resetOrder = function(order){

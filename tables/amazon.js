@@ -11,19 +11,33 @@ exports.findAll = function(req, res){
 
 	res.setHeader('Access-Control-Allow-Origin','*');
 
-	var sql={'title':{$regex:req.query.searchWords}};
-	
+	if(req.query.searchWords=="")
+		return;
+
+    console.log('searchWords:'+req.query.searchWords);
+	var strs= new Array(); //定义一数组 
+	strs=req.query.searchWords.split(" "); //字符分割 
+	var sql={};
+ 	sql.$and=[];
+	for (i=0;i<strs.length ;i++ ) 
+	{ 
+	    var searchexpress= {'title':{$regex:strs[i],$options: 'i'}};
+ 		sql.$and.push(searchexpress);	  ; //分割后的字符输出 
+	} 
+
+	//var sql={'title':{$regex:req.query.searchWords,$options: 'i'}};
+ 	
 	if(req.query.mailToChina==1)
 		sql.shiptochina="ship to china";
  
-  
-	// var jsonString = "{\"title\": {\"$regex\": \" "+req.query.searchWords+"\"}}";
+ 	// var jsonString = "{\"title\": {\"$regex\": \" "+req.query.searchWords+"\"}}";
 	// var jsonObj = JSON.parse(jsonString);
  
   	
  	var page=(req.query.currentPage-1)*20;
 
    	table.find(sql).count(function (e, count) {
+		 console.log('count:'+count);
 
  	        var ret={};
 	       	ret.total=count;
@@ -36,14 +50,28 @@ exports.findAll = function(req, res){
  		 			var record={};
 		 			record.pid=doc._id;
 		 			record.thumbnail=doc.imgsrc;
-		 			record.name=doc.title;
-		 			record.price=doc.price.substring(1);
-
+		 			record.bigimgsrc=doc.bigimgsrc;
+		 			record.name=doc.title ;//.substring(0,50);
+		 			record.brand=doc.brand;
+		 			if(doc.inStock){
+		 					record.instock = doc.inStock.trim()=="In Stock."?"现货":doc.inStock;
+		 			}
+		 			record.listprice =doc.listprice;
+		 			record.price=doc.price ;
+		 			record.directPost= doc.shiptochina=="ship to china"? "直邮":"";
+		 			record.ziying = doc.merchantID == "ATVPDKIKX0DER" ? "自营":"";
+		 			record.quxian = "3" ;
+		 			record.star= doc.star;
+		 			record.updatetime="2015-07-18"; //doc.updatetime;
+		 			if(doc.customerreviews){
+		 				record.customerreviews = doc.customerreviews.replace('customer reviews', '').replace('customer review', '').trim();
+		 		    }
+		 			record.url=doc.url;
 
 		            ret.items.push(record);
 		            });
 
-		            res.status(200).send(ret);
+		            res.status(200).send(ret).end();
 	       		}
 
  		     });
@@ -68,16 +96,25 @@ exports.findAll = function(req, res){
 	
 }
 
-exports.find = function (req, res , next){
+exports.find = function (req, res){
+	console.log('id:'+req.params.id);
 	res.setHeader('Access-Control-Allow-Origin','*');
-	table.findOne({_id:mongojs.ObjectId(req.params.id)} , function(err , success){
-		console.log('Response success '+success);
-		console.log('Response error '+err);
-		if(success){
-			res.send(200 , success);
-			return next();
-		}
-		return next(err);
-	})
+	table.findOne({_id:mongojs.ObjectId(req.params.id)} , function(err , doc){
+ 		if(doc){
+ 			console.log('title:'+doc.title);
+		 			var record={};
+		 			record.pid=doc._id;
+		 			record.imgurl=doc.imgsrc;
+		 			record.name=doc.title;
+		 			record.price=doc.price ? doc.price.substring(1): "";
+		 			record.outLink=doc.url;
+		 			//record.directPost= doc.shiptochina=="ship to china"? "直邮":"";
+		 			//record.ziying = doc.merchantID == "ATVPDKIKX0DER" ? "自营":"";
+		 			//record.quxian = "3" ;
+
+					res.status(200).send(record).end(); 
+ 		}
+ 	})
+
 }
 
