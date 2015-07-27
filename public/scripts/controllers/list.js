@@ -41,15 +41,24 @@
 		//list or table
 		$scope.showBlock = false;
 		$scope.showList = true;
+		$scope.showFeedBack = false;
 		$scope.viewType = "list";
 		$scope.showGoods = function(type){
+			if(!!!$scope.total){
+				$scope.showBlock = false;
+				$scope.showList = false;
+				$scope.showFeedBack = true;
+				return;
+			}
 			if( type == "block" ){
 				$scope.showBlock = true;
 				$scope.showList = false;
+				$scope.showFeedBack = false;
 				$scope.viewType = "block";
 			}else{
 				$scope.showBlock = false;
 				$scope.showList = true;
+				$scope.showFeedBack = false;
 				$scope.viewType = "list";
 			}
 		}
@@ -87,7 +96,7 @@
 		$scope.lowFilter = null;
 		//$scope.predicate = 'comprehensive';
 		$scope.$watch('highFilter + lowFilter + predicate', function(){getPageData();});
-
+		$scope.$watch('total',function(){});
 		// http request for getting page date
 		var getPageData = function(){
 			$http({
@@ -102,10 +111,14 @@
 			}).success(
 				function(data){
 					$scope.goodBlocks = data;
+					
 					$scope.total = data.total;
 					
 					// init paging
 					$scope.searchWords = $rootScope.searchWords;
+					
+					$scope.showGoods($scope.viewType);
+
 					if(!!!$scope.pageSize){
 						$scope.pageSize = 20;
 					}

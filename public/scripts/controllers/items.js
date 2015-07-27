@@ -10,7 +10,7 @@
 			getData : getData
 		}
 		function getData(){
-			return $http.get('data/detail'+ $routeParams.pid + '.json')
+			return $http.get('/detail/'+ $routeParams.pid)
 				.success(function(response){
 					return response.data;
 	        	});

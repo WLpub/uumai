@@ -57,7 +57,7 @@ exports.findAll = function(req, res){
 		 					record.instock = doc.inStock.trim()=="In Stock."?"现货":doc.inStock;
 		 			}
 		 			record.listprice =doc.listprice;
-		 			record.price=doc.price ;
+		 			record.price=doc.price ;  //Number(!!doc.price?doc.price.substring(1):'');
 		 			record.directPost= doc.shiptochina=="ship to china"? "直邮":"";
 		 			record.ziying = doc.merchantID == "ATVPDKIKX0DER" ? "自营":"";
 		 			record.quxian = "3" ;
