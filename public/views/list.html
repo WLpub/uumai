@@ -38,9 +38,9 @@
                 <label class="form_label">超级低价过滤：</label>
                 <select class="form-control" ng-model="lowFilter">
                     <option value="null">空</option>
-                    <option value="1">1个月内最低</option>
-                    <option value="3">3个月内最低</option>
-                    <option value="6">6个月内最低</option>
+                    <option value="1">1个月</option>
+                    <option value="3">3个月</option>
+                    <option value="6">6个月</option>
                 </select>
                 <label class="form_label">视图切换：</label>
                 <div class="iconbtn-group">
@@ -66,6 +66,7 @@
                         <a href="#/detail/{{list.pid}}" ng-bind="list.name"></a>
                     </p>
                     <p ng-bind="list.price" class="goods_price"></p>
+                    <a href="{{list.url}}"  target="_blank">购买</a>
                     <section class="grayDescrib">
                         <p class="listSales">客户评级<span ng-bind="list.star"></span></p>
                         <p class="listComment"><span class="listComments" ng-bind="list.customerreviews"></span>条评论</p>    

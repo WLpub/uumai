@@ -29,7 +29,13 @@ exports.findAll = function(req, res){
  	
 	if(req.query.mailToChina==1)
 		sql.shiptochina="ship to china";
- 
+
+	if(req.query.filterText==1||req.query.filterText==3||req.query.filterText==6)
+		sql.ismixprice=eval(req.query.filterText);
+
+
+ 	console.log('sql.ismixprice:'+sql.ismixprice);
+
  	// var jsonString = "{\"title\": {\"$regex\": \" "+req.query.searchWords+"\"}}";
 	// var jsonObj = JSON.parse(jsonString);
  
@@ -51,10 +57,22 @@ exports.findAll = function(req, res){
 		 			record.pid=doc._id;
 		 			record.thumbnail=doc.imgsrc;
 		 			record.bigimgsrc=doc.bigimgsrc;
-		 			record.name=doc.title ;//.substring(0,50);
+		 			if(doc.title.length>40){
+		 				record.name=doc.title.substring(0,40)+"...";
+		 			}else{
+		 				record.name=doc.title;
+		 			}
 		 			record.brand=doc.brand;
 		 			if(doc.inStock){
-		 					record.instock = doc.inStock.trim()=="In Stock."?"现货":doc.inStock;
+		 					var instock= doc.inStock.trim()=="In Stock."?"现货":doc.inStock;
+		 					if(instock.indexOf("In stock but may require an extra")>=0){
+		 						instock="期货";
+		 					}
+		 					if(instock.indexOf("left in stock")>=0){
+		 						var instockstr=instock.split(" ");
+		 						instock=instockstr[2];
+		 					} 
+		 					record.instock = instock;
 		 			}
 		 			record.listprice =doc.listprice;
 		 			record.price=doc.price ;  //Number(!!doc.price?doc.price.substring(1):'');
