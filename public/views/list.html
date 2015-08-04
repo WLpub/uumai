@@ -12,7 +12,7 @@
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="搜一搜" ng-model="searchWords">
                 <span class="input-group-btn">
-                    <button class="btn btn-primary" type="search" ng-click="searchGoods()">GO</button>
+                    <button class="btn btn-primary" type="search" ng-click="searchGoods()">uu一下</button>
                 </span>
             </div>
         </div>
@@ -44,8 +44,8 @@
                 </select>
                 <label class="form_label">视图切换：</label>
                 <div class="iconbtn-group">
-                    <a class="btn icon-btn" ng-click="showGoods('block')" ng-class="setView('block')"><span class="glyphicon glyphicon-th"></span></a>
                     <a class="btn icon-btn" ng-click="showGoods('list')" ng-class="setView('list')"><span class="glyphicon glyphicon-align-justify"></span></a>
+                    <a class="btn icon-btn" ng-click="showGoods('block')" ng-class="setView('block')"><span class="glyphicon glyphicon-th"></span></a>
                 </div>
             </div>
         </div>
@@ -63,10 +63,9 @@
                 </a>
                 <div class="caption">
                     <p class="listGoodDescrib">
-                        <a href="#/detail/{{list.pid}}" ng-bind="list.name"></a>
+                        <a href="#/detail/{{list.pid}}" target="_blank" ng-bind="list.name"></a>
                     </p>
                     <p ng-bind="list.price" class="goods_price"></p>
-                    <a href="{{list.url}}"  target="_blank">购买</a>
                     <section class="grayDescrib">
                         <p class="listSales">客户评级<span ng-bind="list.star"></span></p>
                         <p class="listComment"><span class="listComments" ng-bind="list.customerreviews"></span>条评论</p>    
@@ -93,7 +92,6 @@
                 <th>自营</th>
                 <th>客户评级</th>
                 <th>评论数</th> 
-                <th></th> 
                 <th>更新时间</th> 
             </thead>
             <tbody>
@@ -113,14 +111,13 @@
                     <td ng-bind="list.ziying"></td>
                     <td ng-bind="list.star"></td>
                     <td ng-bind="list.customerreviews"></td>
-                    <td><a href="{{list.url}}"  target="_blank">购买</a></td>  
                     <td ng-bind="list.updatetime"></td>  
                 </tr>
             </tbody>
         </table>
     </div>
     <div class="well" ng-show="showFeedBack">
-        <h2 class="text-center">没有结果，点击<a href="/feedback/{{searchWords}}">提交反馈</a></h2>
+        <h2 class="text-center">没有结果?，点击<a href="/feedback/{{searchWords}}" target="_blank">提交反馈</a></h2>
     </div>
     <!-- paging -->
     <div class="paging">

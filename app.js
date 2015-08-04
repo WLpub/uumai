@@ -17,7 +17,7 @@ var xueqiu=require('./tables/xueqiu.js');
 //app.get('/xueqius', xueqiu.findAll);
 //app.get('/xueqius' +'/:id', xueqiu.find);
  
-app.get('/detail/:pid',function(req,res){
+app.get('/detail/:id',function(req,res){
 	amazon.find(req,res);
 	//res.status(200).send("success!").end()
 });
@@ -38,6 +38,10 @@ app.get('/feedback/:word',function(req,res){
 
 app.get('/app',function(req,res){
 	res.sendFile(path.join(__dirname,'/index.html'));
+});
+
+app.get('/app1',function(req,res){
+	res.sendFile(path.join(__dirname,'/test.html'));
 });
 
 http.createServer(app).listen(app.get('port'), function(){

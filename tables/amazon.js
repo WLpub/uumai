@@ -22,6 +22,7 @@ exports.findAll = function(req, res){
 	for (i=0;i<strs.length ;i++ ) 
 	{ 
 	    var searchexpress= {'title':{$regex:strs[i],$options: 'i'}};
+	    console.log('searchexpress:'+strs[i]);
  		sql.$and.push(searchexpress);	  ; //分割后的字符输出 
 	} 
 
@@ -30,11 +31,11 @@ exports.findAll = function(req, res){
 	if(req.query.mailToChina==1)
 		sql.shiptochina="ship to china";
 
-	if(req.query.filterText==1||req.query.filterText==3||req.query.filterText==6)
+	if(req.query.filterText==1||req.query.filterText==3||req.query.filterText==6){
+		console.log('sql.ismixprice:'+sql.ismixprice);
 		sql.ismixprice=eval(req.query.filterText);
+	}
 
-
- 	console.log('sql.ismixprice:'+sql.ismixprice);
 
  	// var jsonString = "{\"title\": {\"$regex\": \" "+req.query.searchWords+"\"}}";
 	// var jsonObj = JSON.parse(jsonString);
@@ -119,17 +120,31 @@ exports.find = function (req, res){
 	res.setHeader('Access-Control-Allow-Origin','*');
 	table.findOne({_id:mongojs.ObjectId(req.params.id)} , function(err , doc){
  		if(doc){
- 			console.log('title:'+doc.title);
+ 					//console.log('title:'+doc.title);
 		 			var record={};
 		 			record.pid=doc._id;
-		 			record.imgurl=doc.imgsrc;
+		 			record.imgsrc=doc.imgsrc;
+		 			record.imgurl=doc.bigimgsrc;
 		 			record.name=doc.title;
+		 			record.listprice=doc.listprice;
 		 			record.price=doc.price ? doc.price.substring(1): "";
 		 			record.outLink=doc.url;
+		 			record.inStock=doc.inStock;
+		 			record.brand=doc.brand;
+		 			record.ziying= doc.merchantID == "ATVPDKIKX0DER" ? "自营":"";
+		 			record.storeID=doc.storeID;
+		 			record.directPost= doc.shiptochina=="ship to china"? "直邮":"";
+		 			record.updatetime=doc.updatetime;
+		 			record.category=doc.category;
+		 			record.star=doc.star;
+		 			record.bestrank= doc.bestrank;
+		 			record.customerreviews=doc.customerreviews;
+		 			record.ismixprice=doc.ismixprice;
+		 			record.description=doc.description;
 		 			//record.directPost= doc.shiptochina=="ship to china"? "直邮":"";
 		 			//record.ziying = doc.merchantID == "ATVPDKIKX0DER" ? "自营":"";
 		 			//record.quxian = "3" ;
-
+		 			record.priceTrend=doc.priceTrend;
 					res.status(200).send(record).end(); 
  		}
  	})
