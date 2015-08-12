@@ -36,11 +36,8 @@
                     </label>
                 </div>
                 <label class="form_label">超级低价过滤：</label>
-                <select class="form-control" ng-model="lowFilter">
-                    <option value="null">空</option>
-                    <option value="1">1个月</option>
-                    <option value="3">3个月</option>
-                    <option value="6">6个月</option>
+                <select class="form-control" ng-model="lowFilter" ng-init='lowFilterList=[{"value":1,"name":"一个月"},{"value":3,"name":"三个月"},{"value":6,"name":"六个月"}];' ng-options="filter.value as filter.name for filter in lowFilterList">
+                    <option value="">空</option>
                 </select>
                 <label class="form_label">视图切换：</label>
                 <div class="iconbtn-group">
