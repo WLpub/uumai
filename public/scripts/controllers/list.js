@@ -91,6 +91,11 @@
 			getPageData();
 		}
 
+		$scope.enterSearchWord = function(event){
+			if(event.keyCode !== 13) return;
+			$scope.searchGoods();
+		}
+
 		//filter && loading Page
 		$scope.highFilter = false;
 		$scope.lowFilter = null;

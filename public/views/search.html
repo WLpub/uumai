@@ -4,7 +4,7 @@
 	</div>
 
 	<div class="index_search input-group input-group-lg">
-		<input type="text" class="form-control" placeholder="搜一搜" ng-model="searchWords">
+		<input type="text" class="form-control" placeholder="搜一搜" ng-model="searchWords" ng-keypress="enterSearchWord($event)">
 		<span class="input-group-btn">
 			<button class="btn btn-primary" ng-click="goToList()" dateKeys >uu一下</button>
 		</span>

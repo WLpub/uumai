@@ -1,9 +1,9 @@
-1, 支持回车点击search
+//1, 支持回车点击search
 2, 详细页面显示更多数据，价格图表显示太不直观。
 最好能和这个一样 https://keepa.com/#!product/1-B008RVTIOI
-3， 价格排序，是string的排序，不是数字的。
-4,  详细页面好像发送2次ajax请求。
-5, 详细页面不需要search框， 点击search button也无效。
-6,search页面，使用大图模式， 排序乱
+//3， 价格排序，是string的排序，不是数字的。
+//4,  详细页面好像发送2次ajax请求。
+//5, 详细页面不需要search框， 点击search button也无效。
+//6,search页面，使用大图模式， 排序乱
 7, 页数，一定要点到数字上才有效。
 

@@ -13,6 +13,10 @@
 			}
 			$rootScope.searchWords = $scope.searchWords;
 			$location.path('/list');
+		};
+		$scope.enterSearchWord = function(event){
+			if(event.keyCode !== 13) return;
+			$scope.goToList(); 
 		}
 	}
 	

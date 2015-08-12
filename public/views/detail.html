@@ -1,9 +1,9 @@
 <div class="pageWidth container">
 	<!-- search -->
-    <div class="detail_search row">
-       <!--  <div class="detail_logo">
+         <!-- <div class="detail_search row">
+       <div class="detail_logo">
             <p class="logo"><span>uumai</span> 悠悠买</p>
-        </div> -->
+        </div> 
         <div class="col-md-2">
             <div class="dropdown ">
                  
@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-    
+    -->
 	<!-- breadcrumb nav 
     <ol class="breadcrumb">
         <li ng-repeat="bread in item.path">
@@ -34,11 +34,11 @@
         </div>
         <div class="col-md-4">
         	<p class="goods_name" ng-bind="item.name"></p>
-        	<p class="goods_price" ng-bind="item.price"></p>
+        	<p class="goods_price" ng-bind="item.price|currency:'￥'"></p>
         	<p class="goods_description" ng-bind="item.name"></p>
             <p><a class="btn btn-success my-btn" ng-href="{{item.outLink}}" target="_blank"><span class="glyphicon glyphicon-send"></span>   前往</a></p>
         </div>
-        <div class="col-md-5" ng-controller="LineCtrl">
+        <div class="col-md-5">
 			<canvas id="line" class="chart chart-line" data="data" labels="labels" series="series"></canvas>
         </div>
     </div>

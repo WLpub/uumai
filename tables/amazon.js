@@ -75,15 +75,15 @@ exports.findAll = function(req, res){
 		 					} 
 		 					record.instock = instock;
 		 			}
-		 			record.listprice =doc.listprice;
-		 			record.price=doc.price ;  //Number(!!doc.price?doc.price.substring(1):'');
+		 			record.listprice = Number(!!doc.listprice?doc.listprice.substring(1):'');
+		 			record.price= Number(!!doc.price?doc.price.substring(1):'');
 		 			record.directPost= doc.shiptochina=="ship to china"? "直邮":"";
 		 			record.ziying = doc.merchantID == "ATVPDKIKX0DER" ? "自营":"";
 		 			record.quxian = "3" ;
-		 			record.star= doc.star;
+		 			record.star= Number(doc.star);
 		 			record.updatetime="2015-07-18"; //doc.updatetime;
 		 			if(doc.customerreviews){
-		 				record.customerreviews = doc.customerreviews.replace('customer reviews', '').replace('customer review', '').trim();
+		 				record.customerreviews = Number(doc.customerreviews.replace('customer reviews', '').replace('customer review', '').trim())||0;
 		 		    }
 		 			record.url=doc.url;
 
@@ -126,8 +126,8 @@ exports.find = function (req, res){
 		 			record.imgsrc=doc.imgsrc;
 		 			record.imgurl=doc.bigimgsrc;
 		 			record.name=doc.title;
-		 			record.listprice=doc.listprice;
-		 			record.price=doc.price ? doc.price.substring(1): "";
+		 			record.listprice=Number(doc.listprice ? doc.listprice.substring(1): "");
+		 			record.price=Number(doc.price ? doc.price.substring(1): "");
 		 			record.outLink=doc.url;
 		 			record.inStock=doc.inStock;
 		 			record.brand=doc.brand;
@@ -136,9 +136,9 @@ exports.find = function (req, res){
 		 			record.directPost= doc.shiptochina=="ship to china"? "直邮":"";
 		 			record.updatetime=doc.updatetime;
 		 			record.category=doc.category;
-		 			record.star=doc.star;
+		 			record.star=Number(doc.star);
 		 			record.bestrank= doc.bestrank;
-		 			record.customerreviews=doc.customerreviews;
+		 			record.customerreviews=Number(doc.customerreviews);
 		 			record.ismixprice=doc.ismixprice;
 		 			record.description=doc.description;
 		 			//record.directPost= doc.shiptochina=="ship to china"? "直邮":"";

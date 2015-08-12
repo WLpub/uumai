@@ -10,7 +10,7 @@
         </div>
         <div class="col-md-6">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="搜一搜" ng-model="searchWords">
+                <input type="text" class="form-control" placeholder="搜一搜" ng-model="searchWords" ng-keypress="enterSearchWord($event)">
                 <span class="input-group-btn">
                     <button class="btn btn-primary" type="search" ng-click="searchGoods()">uu一下</button>
                 </span>
@@ -27,7 +27,7 @@
             </div>
         </div>        
         <!-- filter && view port -->
-        <div class="col-md-6">
+        <div class="col-md-7">
             <div class="form-inline alignRight">
                 <label class="form_label">高级过滤：</label>
                 <div class="checkbox">
@@ -52,20 +52,20 @@
     </div>
     <div class="row">
         <br/>
-     <div class="col-md-2"><div class="form-inline alignLeft" ng-bind="'第'+currentPage+'页 ,共'+total+'条'"></div></div>
+     <div class="col-md-2"><div class="form-inline alignLeft" ng-init="currentPage=0;total=0;" ng-bind="'第'+currentPage+'页 ,共'+total+'条'"></div></div>
     </div>
     <!-- goods Block -->
     <div class="goodList row" ng-show="showBlock">
         <div class="col-sm-6 col-md-4 col-lg-3" ng-repeat="list in goodBlocks.items | orderBy:predicate">
             <div class="thumbnail">
                 <a href="#/detail/{{list.pid}}" target="_blank">
-                    <img ng-src="{{list.bigimgsrc}}" alt="">
+                    <img ng-src="{{list.bigimgsrc}}" alt="" class="carousel-inner img-thumbnail" style="height: 220px;">
                 </a>
                 <div class="caption">
                     <p class="listGoodDescrib">
                         <a href="#/detail/{{list.pid}}" target="_blank" ng-bind="list.name"></a>
                     </p>
-                    <p ng-bind="list.price" class="goods_price"></p>
+                    <p ng-bind="list.price| currency:'￥'" class="goods_price"></p>
                     <section class="grayDescrib">
                         <p class="listSales">客户评级<span ng-bind="list.star"></span></p>
                         <p class="listComment"><span class="listComments" ng-bind="list.customerreviews"></span>条评论</p>    
@@ -99,13 +99,13 @@
                  <!--    <td ng-bind="list.logo" class="logoColor"></td> -->
                     <td>
                        <a href="#/detail/{{list.pid}}" target="_blank">
-                            <img ng-src="{{list.thumbnail}}" alt="">
+                            <img ng-src="{{list.thumbnail}}" alt="" style="height:30px;">
                        </a> 
                     </td>
                     <td><a href="#/detail/{{list.pid}}"  target="_blank" ng-bind="list.name"></a></td>
                     <td ng-bind="list.brand"></td>
-                    <td ng-bind="list.listprice"></td>
-                    <td ng-bind="list.price" class="priceColor"></td>
+                    <td ng-bind="list.listprice|currency:'￥'"></td>
+                    <td ng-bind="list.price| currency:'￥'" class="priceColor"></td>
                     <td ng-bind="list.directPost"></td>
                     <td ng-bind="list.instock"></td>
                     <td ng-bind="list.ziying"></td>
