@@ -104,6 +104,7 @@
 		$scope.$watch('total',function(){});
 		// http request for getting page date
 		var getPageData = function(){
+			if(!!!$rootScope.searchWords) return;
 			$http({
 				method: 'GET',
 				url: '/list',
@@ -115,6 +116,7 @@
 						}
 			}).success(
 				function(data){
+
 					$scope.goodBlocks = data;
 					
 					$scope.total = data.total;
