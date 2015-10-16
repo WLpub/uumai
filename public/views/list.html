@@ -32,7 +32,7 @@
                 <label class="form_label">高级过滤：</label>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" ng-model="highFilter"> 直邮中国
+                        <input type="checkbox" ng-model="highFilter" ng-click="shopCate()"> 直邮中国
                     </label>
                 </div>
                 <label class="form_label">超级低价过滤：</label>
@@ -47,6 +47,28 @@
             </div>
         </div>
     </div>
+	<!-- ng-show="shopShow"-->
+	<div class="row">
+		<div class="col-md-12">
+			<div  class="form-inline">
+				<ul class="filterUl">
+				<li><label class="form-label labelLeft">商城过滤:</label></li>
+				<li ng-repeat="shop in shopList" class="icon" ng-click="switchShop(shop.name,shop.class)"><div ng-class="shop.class"></div></li>
+				<li>&nbsp;&nbsp;&nbsp;&nbsp;<div class="btn btn-default btn-xs" ng-click="switchShop(1,1,1)">全选</div>&nbsp;&nbsp;&nbsp;&nbsp;<div class="btn btn-default btn-xs"  ng-click="switchShop(0,0,0)">全不选</div></li>
+				</ul>
+			</div>
+		</div>	
+	</div>
+	<div class="row">
+		<div class="border" class="col-md-12" ></div>
+		<div id="typePanel" class="collapse in col-md-12" >
+		 <ul class="filterUl">
+		 <li ng-repeat="cate in cateList"><input type="checkbox" ng-click="switchCate(cate.name,cate.class)" checked="cate.class"/><font ng-bind="cate.name+'['+cate.count+']'"></font></li>
+		 </ul>
+		</div>
+		<div type="button" class="col-md-12 {{typePanelClass}}" data-toggle="collapse"  data-target="#typePanel" ng-click="switchPanel()">
+		</div>
+	</div>
     <div class="row">
         <br/>
      <div class="col-md-2"><div class="form-inline alignLeft" ng-init="currentPage=0;total=0;" ng-bind="'第'+currentPage+'页 ,共'+total+'条'"></div></div>
@@ -65,7 +87,6 @@
                     <p ng-bind="list.price| currency:'￥'" class="goods_price"></p>
                     <section class="grayDescrib">
                         <p class="listSales">客户评级<span ng-bind="list.star"></span></p>
-                        <p class="listComment"><span class="listComments" ng-bind="list.customerreviews"></span>条评论</p>    
                     </section>
                     <!-- <p>综合排名：<span ng-bind="list.comprehensive"></span></p> -->
                     <p class="listSource" ng-bind="list.logo"></p>
@@ -88,7 +109,6 @@
                 <th>有货</th>
                 <th>自营</th>
                 <th>客户评级</th>
-                <th>评论数</th> 
                 <th>更新时间</th> 
             </thead>
             <tbody>
@@ -107,7 +127,6 @@
                     <td ng-bind="list.instock | limitTo:4"></td>
                     <td ng-bind="list.ziying | limitTo:4"></td>
                     <td ng-bind="list.star | limitTo:4"></td>
-                    <td ng-bind="list.customerreviews"></td>
                     <td ng-bind="list.updatetime"></td>  
                 </tr>
             </tbody>

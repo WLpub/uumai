@@ -8,13 +8,11 @@ var table = db.collection("AmazonProduct");
 exports.findAll = function(req, res){
 
 	//http://localhost:8080/list?currentPage=1&filterText=&mailToChina=0&orderByText=comprehensive&searchWords=xxx
-
 	res.setHeader('Access-Control-Allow-Origin','*');
 
 	if(req.query.searchWords=="")
 		return;
 
-    console.log('searchWords:'+req.query.searchWords);
 	var strs= new Array(); //定义一数组 
 	strs=req.query.searchWords.split(" "); //字符分割 
 	var sql={};
@@ -22,24 +20,17 @@ exports.findAll = function(req, res){
 	for (i=0;i<strs.length ;i++ ) 
 	{ 
 	    var searchexpress= {'title':{$regex:strs[i],$options: 'i'}};
-	    console.log('searchexpress:'+strs[i]);
  		sql.$and.push(searchexpress);	  ; //分割后的字符输出 
 	} 
 
 	//var sql={'title':{$regex:req.query.searchWords,$options: 'i'}};
- 	
+ 	console.log(req.query);
 	if(req.query.mailToChina==1)
 		sql.shiptochina="ship to china";
 
 	if(req.query.filterText==1||req.query.filterText==3||req.query.filterText==6){
-		console.log('sql.ismixprice:'+sql.ismixprice);
 		sql.ismixprice=eval(req.query.filterText);
 	}
-
-
- 	// var jsonString = "{\"title\": {\"$regex\": \" "+req.query.searchWords+"\"}}";
-	// var jsonObj = JSON.parse(jsonString);
- 
   	
  	var page=(req.query.currentPage-1)*20;
 
@@ -145,6 +136,8 @@ exports.find = function (req, res){
 		 			//record.ziying = doc.merchantID == "ATVPDKIKX0DER" ? "自营":"";
 		 			//record.quxian = "3" ;
 		 			record.priceTrend=doc.priceTrend;
+		 			if(!!!doc.priceTrend){record.priceTrend={'dates':[1,2,3,4],'prices':[3,2,5,1]};}
+		 			console.log(record.priceTrend);
 					res.status(200).send(record).end(); 
  		}
  	})

@@ -27,3 +27,18 @@ body{position: relative;font-family: Arial,Verdana;}
 .orange{color:#ec971f;}
 .alignRight{text-align: right;}
 .form_label{margin-left: 15px;}
+.icon{float: left;width: 18px;height: 18px;line-height:18px;overflow: hidden;margin-left: 6px;margin-top:12px;}
+.appleIcon {background: url(d_icon.gif) no-repeat 0 0;margin-top: -1025px;width: 18px;height: 1100px;}
+.JDIcon {background: url(d_icon.gif) no-repeat 0 0;margin-top: -25px;width: 18px;height: 1100px;}
+.amazonIcon {background: url(d_icon.gif) no-repeat 0 0;margin-top: -50px;width: 18px;height: 1100px;}
+.suningIcon {background: url(d_icon.gif) no-repeat 0 0;margin-top: -425px;width: 18px;height: 1100px;}
+.taobaoIcon {background: url(d_icon.gif) no-repeat 0 0;margin-top: -150px;width: 18px;height: 1100px;}
+.appleIconL {background: url(d_iconno.gif) no-repeat 0 0;margin-top: -1025px;width: 18px;height: 1100px;}
+.JDIconL {background: url(d_iconno.gif) no-repeat 0 0;margin-top: -25px;width: 18px;height: 1100px;}
+.amazonIconL {background: url(d_iconno.gif) no-repeat 0 0;margin-top: -50px;width: 18px;height: 1100px;}
+.suningIconL{background: url(d_iconno.gif) no-repeat 0 0;margin-top: -425px;width: 18px;height: 1100px;}
+.taobaoIconL {background: url(d_iconno.gif) no-repeat 0 0;margin-top: -150px;width: 18px;height: 1100px;}
+ul.filterUl{list-style:none;margin:0px;}
+ul.filterUl li{float:left;line-height:43px;height:43px;}
+ul.filterUl li.icon{float:left;line-height:25px;height:25px;}
+ul.filterUl li font{margin-right:1em;padding:0 15px 0 5px;}

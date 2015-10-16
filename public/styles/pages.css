@@ -80,3 +80,7 @@ table.line-link{cursor: pointer;}
 @media (max-width: 500px){
 	.detailPage{width: 100%;}
 }
+.typePanelOpen{background: url(./category.png) center -18px  no-repeat;height:18px;cursor: pointer;}
+.typePanelClose{background: url(./category.png) center -0px  no-repeat;height:18px;cursor: pointer;}
+#typePanel{border-bottom: 1px solid #cbcbcb;}
+.border{border-bottom: 1px solid #cbcbcb;height:2px;line-height:2px;}
