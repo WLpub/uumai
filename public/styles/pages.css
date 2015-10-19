@@ -70,7 +70,7 @@ footer p{text-align: center;}
 /* detail page */
 .detail_search{margin-bottom: 30px;position: relative;}
 .goods_name{font-size: 16px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
-.goods_price{color: #FF6100;font-size: 20px;margin: 5px 0;font-family: Verdana;}
+.goods_price{color: #FF6100;font-size: 20px;margin: 5px 0;font-family: Verdana;bottom:0;}
 .goods_description{font-size: 12px;height: 104px;overflow: hidden;text-overflow: ellipsis;}
 table.line-link{cursor: pointer;}
 @media (min-width: 900px){

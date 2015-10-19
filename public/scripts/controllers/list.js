@@ -13,7 +13,7 @@
 			type: "comprehensive",
 			name: "综合排序"
 		},{
-			type: "price",
+			type: "listprice",
 			name: "价格"
 		},{
 			type: "star",
@@ -33,6 +33,7 @@
 			}else{
 				$scope.predicate = order;
 			}
+			console.log(order);
 		};
 		$scope.setSelectedClass = function(type){
 			if ( $scope.predicate == type || $scope.predicate == "-"+type ){
@@ -212,6 +213,7 @@
 					$scope.hideIfEmpty = true;
 					$scope.scrollTop = true;
 					$scope.showPrevNext = false;
+					$scope.$apply();
 				}
 			);
 		};

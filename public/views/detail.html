@@ -1,12 +1,36 @@
 <div class="pageWidth container">
-<script src="http://code.highcharts.com/highcharts.js"></script>
+	<br/>
+	<br/>
+	<div class="detail_search row">
+     <!--    <div class="col-md-4">
+            <p class="logo mini_logo"><span>uumai</span> 悠悠买</p>
+        </div> -->
+        <div class="col-md-2">
+            <div class="dropdown ">
+                 
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="搜一搜" ng-model="searchWords" ng-keypress="enterSearchWord($event)">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="search" ng-click="searchGoods()">uu一下</button>
+                </span>
+            </div>
+        </div>
+    </div>
+	<br/>
+	<br/>
+	<br/>
 	<!-- product display -->
+	<div class="row">
+	   	<p class="goods_name" ng-bind="item.name"></p><br/>
+	</div>
     <div class="row">
     	<div class="col-md-3">
         	<div class="thumbnail"><img ng-src="{{item.imgurl}}" alt=""></div>
         </div>
         <div class="col-md-4">
-        	<p class="goods_name" ng-bind="item.name"></p>
         	<p class="goods_price" ng-bind="item.price|currency:'￥'"></p>
         	<p class="goods_description" ng-bind="item.name"></p>
             <p><a class="btn btn-success my-btn" ng-href="{{item.outLink}}" target="_blank"><span class="glyphicon glyphicon-send"></span>   前往</a></p>
