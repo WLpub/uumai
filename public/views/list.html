@@ -82,14 +82,13 @@
                 </a>
                 <div class="caption">
                     <p class="listGoodDescrib">
-                        <a href="#/detail/{{list.pid}}" target="_blank" ng-bind="list.name"></a>
+                        <a href="#/detail/{{list.pid}}" target="_blank" ng-bind="list.title"></a>
                     </p>
                     <p ng-bind="list.price| currency:'￥'" class="goods_price"></p>
                     <section class="grayDescrib">
-                        <p class="listSales">客户评级<span ng-bind="list.star"></span></p>
+                        <p class="listSales">评论数<span ng-bind="list.customerreview"></span></p>
+						<p class="listSales" style="float:right">&nbsp;&nbsp;&nbsp;&nbsp;<span ng-bind="list.website"></span></p>
                     </section>
-                    <!-- <p>综合排名：<span ng-bind="list.comprehensive"></span></p> -->
-                    <p class="listSource" ng-bind="list.logo"></p>
                 </div>
             </div>
         </div>
@@ -102,13 +101,11 @@
             <!--    <th>商城</th>-->
                 <th></th>    <!--图片-->
                 <th>商品名称</th>
-                <th>品牌</th>
-                <th>原价</th>
-                <th>折扣价</th>
-                <th>直邮中国</th>
+                <th>价格</th>
+				<th>商城</th>
                 <th>有货</th>
                 <th>自营</th>
-                <th>客户评级</th>
+                <th>评论数</th>
                 <th>更新时间</th> 
             </thead>
             <tbody>
@@ -116,17 +113,15 @@
                  <!--    <td ng-bind="list.logo" class="logoColor"></td> -->
                     <td>
                        <a href="#/detail/{{list.pid}}" target="_blank">
-                            <img ng-src="{{list.thumbnail}}" alt="" style="height:30px;">
+                            <img ng-src="{{list.imgsrc}}" alt="" style="height:30px;">
                        </a> 
                     </td>
-                    <td><a href="#/detail/{{list.pid}}"  target="_blank" ng-bind="list.name"></a></td>
-                    <td ng-bind="list.brand"></td>
-                    <td ng-bind="list.listprice|currency:'￥'"></td>
+                    <td><a href="#/detail/{{list.pid}}"  target="_blank" ng-bind="list.title| limitTo:30"></a></td>
                     <td ng-bind="list.price | currency:'￥'" class="priceColor"></td>
-                    <td ng-bind="list.directPost | limitTo:4"></td>
-                    <td ng-bind="list.instock | limitTo:4"></td>
-                    <td ng-bind="list.ziying | limitTo:4"></td>
-                    <td ng-bind="list.star | limitTo:4"></td>
+                    <td ng-bind="list.website"></td>
+					<td ng-bind="{'1':'有货','0':'无货'}[list.instock]"></td>
+                    <td ng-bind="{1:'自营',0:'非自营'}[list.ziying]"></td>
+                    <td ng-bind="list.customerreview | limitTo:4"></td>
                     <td ng-bind="list.updatetime"></td>  
                 </tr>
             </tbody>

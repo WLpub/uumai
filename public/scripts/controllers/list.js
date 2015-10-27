@@ -163,8 +163,30 @@
 		// http request for getting page date
 		var getPageData = function(){
 			if(!!!$rootScope.searchWords) return;
-			
-			var para = {searchWords : $rootScope.searchWords,
+			var para = {
+				"from" : $scope.currentPage*20||0,
+				"size" : 20,
+				  "query": {
+					"filtered": {
+						"query":  { 
+								"match" : { "title" : $rootScope.searchWords }
+						},
+						"filter": {
+							"and" : [
+								  { "terms": { "website": [1,2,3,4,5,6,7] }},
+								  { "terms": { "instock": [1] }},
+								  { "terms": { "ziying": [1] }}
+							 ]
+						 }
+					}
+				},
+				"sort": [
+				{ "category_quanzhong": { "order": "desc" }},
+				  "_score"
+			   ]
+			};
+			console.log(para);
+			/*var para = {searchWords : $rootScope.searchWords,
 						mailToChina: $scope.highFilter?1:0,
 						orderByText : $scope.predicate||'comprehensive',
 						currentPage: $scope.currentPage||1,
@@ -182,17 +204,23 @@
 					para.cateFilter.push($scope.cateList[i].name);
 				}
 			}
-			console.log(para);
+			*/
 			$http({
 				method: 'GET',
-				url: '/list',
+				url: 'http://10.182.111.208:9200/uumaiproduct_index/uumaiproduct/_search',
 				params: para
 			}).success(
 				function(data){
-
-					$scope.goodBlocks = data;
+					var goodData = [];
+					for(var i = 0;i<data.hits.hits.length;i++) {
+						data.hits.hits[i]._source.pid = data.hits.hits[i]._id;
+						goodData.push(data.hits.hits[i]._source);
+					}	
+					$scope.goodBlocks = !!$scope.goodBlocks?$scope.goodBlocks:{};
+					$scope.goodBlocks.items = goodData;
 					
-					$scope.total = data.total;
+					console.log($scope.goodBlocks);
+					$scope.total = data.hits.total;
 					
 					// init paging
 					$scope.searchWords = $rootScope.searchWords;
@@ -213,7 +241,6 @@
 					$scope.hideIfEmpty = true;
 					$scope.scrollTop = true;
 					$scope.showPrevNext = false;
-					$scope.$apply();
 				}
 			);
 		};
