@@ -8,18 +8,14 @@
 		.controller('ListCtrl', ListCtrl);
 
 	function ListCtrl($scope, $http, $rootScope, goodsOrderActiveClass, goodsViewActiveClass){
-		//order by
 		$scope.goodsOrder = [{
-			type: "comprehensive",
+			type: "category_quanzhong",
 			name: "综合排序"
 		},{
-			type: "listprice",
+			type: "price",
 			name: "价格"
 		},{
-			type: "star",
-			name: "客户评级"
-		},{
-			type: "customerreviews",
+			type: "customerreview",
 			name: "评论数"
 		}];
 		//show typePanel
@@ -33,7 +29,6 @@
 			}else{
 				$scope.predicate = order;
 			}
-			console.log(order);
 		};
 		$scope.setSelectedClass = function(type){
 			if ( $scope.predicate == type || $scope.predicate == "-"+type ){
@@ -122,19 +117,31 @@
 		$scope.shopShow = false;
 		//http request for getting shop list
 		var getShopList = function(callback){
-			var para = {searchWords : $rootScope.searchWords,
-						mailToChina: $scope.highFilter?1:0
+			var para = {
+				"query":  { 
+					"match" : { "title" : $rootScope.searchWords||"" }
+				 },
+				 "aggs": {
+					"website": {
+					  "terms": {
+						"field": "website"
+					  }
+					}
+				  }
 			};
-			if(!!$scope.lowFilter){para.filterText = $scope.lowFilter;}
 			$http({
 				method: 'GET',
-				url: '/shopList',
+				url: 'http://10.182.111.208:9200/uumaiproduct_index/uumaiproduct/_search?search_type=count',
 				params: para
 			}).success(
 				function(data){
+					if(data.hits.hits.length<1){
+							data.hits.hits = [{"key": 1,"doc_count": 6796},{"key": 2,"doc_count": 6796},{"key": 3,"doc_count": 6796},{"key": 4,"doc_count": 6796},
+											{"key": 5,"doc_count": 6796},{"key": 6,"doc_count": 6796},{"key": 7,"doc_count": 6796}];
+					}
 					$scope.shopList=[];
-					for(var i = 0;i<data.length;i++){
-							$scope.shopList.push({'name':data[i],'class':$scope.getShopClass(data[i],true)});
+					for(var i = 0;i<data.hits.hits.length;i++){
+						$scope.shopList.push({'name':data.hits.hits[i].key,'class':$scope.getShopClass(data.hits.hits[i].key,true)});
 					}
 				}
 			);
@@ -142,19 +149,35 @@
 		
 		//http request for getting cate list
 		var getCateList = function(callback){	
-			var para = {searchWords : $rootScope.searchWords,
-						mailToChina: $scope.highFilter?1:0
+			var para = {
+				"query":  { 
+								"match" : { "title" : $rootScope.searchWords||"apple iphone" }
+						},
+			 "sort": [
+				{ "category_quanzhong": { "order": "desc" }},
+			   "_score"
+			   ] ,
+				   "aggs": {
+					"category": {
+					  "terms": {
+						"field": "category"
+					  }
+					}
+				  }
 			};
-			if(!!$scope.lowFilter){para.filterText = $scope.lowFilter;}
 			$http({
 				method: 'GET',
-				url: '/cateList',
+				url: 'http://10.182.111.208:9200/uumaiproduct_index/uumaiproduct/_search?search_type=count',
 				params: para
 			}).success(
 				function(data){
 					$scope.cateList=[];
-					for(var i = 0;i<data.length;i++){
-							$scope.cateList.push($.extend(data[i],{'class':'checked'}));
+					if(data.hits.hits.length<1){
+							data.hits.hits = [{"name": 1,"count": 6796},{"name": 2,"count": 6796},{"name": 3,"count": 6796},{"name": 4,"count": 6796},
+											{"name": 5,"count": 6796},{"name": 6,"count": 6796},{"name": 7,"count": 6796}];
+					}
+					for(var i = 0;i<data.hits.hits.length;i++){
+							$scope.cateList.push($.extend(data.hits.hits[i],{'class':'checked'}));
 					}
 				}
 			);
@@ -163,6 +186,32 @@
 		// http request for getting page date
 		var getPageData = function(){
 			if(!!!$rootScope.searchWords) return;
+			var website = [];
+			for(var i in $scope.shopList){
+				if($scope.shopList[i]['class'].indexOf('IconL')<0){
+					website.push($scope.shopList[i].name);
+				}
+			}
+			var sort  = { "category_quanzhong": { "order": "desc" }};
+			switch($scope.predicate){
+				case 'category_quanzhong':
+				break;
+				case '-category_quanzhong':
+					sort  = { "category_quanzhong": { "order": "asc" }};
+				break;
+				case 'price':
+					sort  = { "price": { "order": "desc" }};
+				break;
+				case '-price':
+					sort  = { "price": { "order": "asc" }};
+				break;
+				case 'customerreview':
+					sort  = { "customerreview": { "order": "desc" }};
+				break;
+				case '-customerreview':
+					sort  = { "customerreview": { "order": "asc" }};
+				break;
+			}
 			var para = {
 				"from" : $scope.currentPage*20||0,
 				"size" : 20,
@@ -173,16 +222,15 @@
 						},
 						"filter": {
 							"and" : [
-								  { "terms": { "website": [1,2,3,4,5,6,7] }},
-								  { "terms": { "instock": [1] }},
-								  { "terms": { "ziying": [1] }}
+								  { "terms": { "website": website}},
+								  { "terms": { "instock": [(!!$scope.highFilter?1:0)] }},
+								  { "terms": { "ziying": [(!!$scope.lowFilter?1:0)] }}
 							 ]
 						 }
 					}
 				},
 				"sort": [
-				{ "category_quanzhong": { "order": "desc" }},
-				  "_score"
+				sort,"_score"
 			   ]
 			};
 			console.log(para);
@@ -219,7 +267,6 @@
 					$scope.goodBlocks = !!$scope.goodBlocks?$scope.goodBlocks:{};
 					$scope.goodBlocks.items = goodData;
 					
-					console.log($scope.goodBlocks);
 					$scope.total = data.hits.total;
 					
 					// init paging
@@ -250,14 +297,17 @@
             $scope.data.columnColor = e.type == "mouseover" ? "Green" : "Blue";
 		};
 		
-		//get shop Class
+		//get shop Class 1，2，3，4，5，6，7    分别代表：amazon,dangdang, gome,jd,suning, yhd, yixun .
+		$scope.shopName = {'1':'亚马逊','2':'当 当网','3':'国美 电器','4':'京东商城','5':'苏宁电器','6':'一 号店','7':'易迅'};
 		$scope.getShopClass = function(shop,state){
 			var shopClass = {
-				'taobao':{true:'taobaoIcon',false:'taobaoIconL'},
-				'amazon':{true:'amazonIcon',false:'amazonIconL'},
-				'JD':{true:'JDIcon',false:'JDIconL'},
-				'suning':{true:'suningIcon',false:'suningIconL'},
-				'apple':{true:'appleIcon',false:'appleIconL'}};
+				'1':{true:'amazonIcon',false:'amazonIconL'},
+				'2':{true:'dangdangIcon',false:'dangdangoIconL'},
+				'3':{true:'guomeiIcon',false:'guomeiIconL'},
+				'4':{true:'JDIcon',false:'JDIconL'},
+				'5':{true:'suningIcon',false:'suningIconL'},
+				'6':{true:'yihaodianIcon',false:'yihaodianIconL'},
+				'7':{true:'yixunIcon',false:'yixunIconL'}};
 		
 			return shopClass[shop][state];
 		};

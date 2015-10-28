@@ -21,7 +21,7 @@
     <div class="row">
         <!-- sort buttons -->
         <div class="col-md-5">
-            <input type="hidden" ng-model="predicate" ng-init="predicate='comprehensive'" >
+            <input type="hidden" ng-model="predicate" ng-init="predicate='category_quanzhong'" >
             <div class="btn-group">
                 <button class="btn btn-default" ng-class="setSelectedClass(btn.type)" ng-repeat="btn in goodsOrder" ng-click="resetOrder(btn.type)" ng-bind="btn.name"></button>
             </div>
@@ -35,10 +35,11 @@
                         <input type="checkbox" ng-model="highFilter" ng-click="shopCate()"> 直邮中国
                     </label>
                 </div>
-                <label class="form_label">超级低价过滤：</label>
-                <select class="form-control" ng-model="lowFilter" ng-init='lowFilterList=[{"value":1,"name":"一个月"},{"value":3,"name":"三个月"},{"value":6,"name":"六个月"}];' ng-options="filter.value as filter.name for filter in lowFilterList">
-                    <option value="">空</option>
-                </select>
+				<div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="lowFilter" ng-click="shopCate()"> 自营
+                    </label>
+                </div>
                 <label class="form_label">视图切换：</label>
                 <div class="iconbtn-group">
                     <a class="btn icon-btn" ng-click="showGoods('list')" ng-class="setView('list')"><span class="glyphicon glyphicon-align-justify"></span></a>
@@ -87,7 +88,7 @@
                     <p ng-bind="list.price| currency:'￥'" class="goods_price"></p>
                     <section class="grayDescrib">
                         <p class="listSales">评论数<span ng-bind="list.customerreview"></span></p>
-						<p class="listSales" style="float:right">&nbsp;&nbsp;&nbsp;&nbsp;<span ng-bind="list.website"></span></p>
+						<p class="listSales" style="float:right">&nbsp;&nbsp;&nbsp;&nbsp;<span ng-bind="shopName[list.website]"></span></p>
                     </section>
                 </div>
             </div>
@@ -118,7 +119,7 @@
                     </td>
                     <td><a href="#/detail/{{list.pid}}"  target="_blank" ng-bind="list.title| limitTo:30"></a></td>
                     <td ng-bind="list.price | currency:'￥'" class="priceColor"></td>
-                    <td ng-bind="list.website"></td>
+                    <td ng-bind="shopName[list.website]"></td>
 					<td ng-bind="{'1':'有货','0':'无货'}[list.instock]"></td>
                     <td ng-bind="{1:'自营',0:'非自营'}[list.ziying]"></td>
                     <td ng-bind="list.customerreview | limitTo:4"></td>

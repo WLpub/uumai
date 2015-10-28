@@ -33,11 +33,20 @@ body{position: relative;font-family: Arial,Verdana;}
 .amazonIcon {background: url(d_icon.gif) no-repeat 0 0;margin-top: -50px;width: 18px;height: 1100px;}
 .suningIcon {background: url(d_icon.gif) no-repeat 0 0;margin-top: -425px;width: 18px;height: 1100px;}
 .taobaoIcon {background: url(d_icon.gif) no-repeat 0 0;margin-top: -150px;width: 18px;height: 1100px;}
+.yixunIcon {background: url(d_icon.gif) no-repeat 0 0;margin-top: -75px;width: 18px;height: 1100px;}
+.yihaodianIcon {background: url(d_icon.gif) no-repeat 0 0;margin-top: -525px;width: 18px;height: 1100px;}
+.dangdangIcon {background: url(d_icon.gif) no-repeat 0 0;margin-top: -500px;width: 18px;height: 1100px;}
+.guomeiIcon {background: url(d_icon.gif) no-repeat 0 0;margin-top: -450px;width: 18px;height: 1100px;}
+
 .appleIconL {background: url(d_iconno.gif) no-repeat 0 0;margin-top: -1025px;width: 18px;height: 1100px;}
 .JDIconL {background: url(d_iconno.gif) no-repeat 0 0;margin-top: -25px;width: 18px;height: 1100px;}
 .amazonIconL {background: url(d_iconno.gif) no-repeat 0 0;margin-top: -50px;width: 18px;height: 1100px;}
 .suningIconL{background: url(d_iconno.gif) no-repeat 0 0;margin-top: -425px;width: 18px;height: 1100px;}
 .taobaoIconL {background: url(d_iconno.gif) no-repeat 0 0;margin-top: -150px;width: 18px;height: 1100px;}
+.yixunIconL {background: url(d_iconno.gif) no-repeat 0 0;margin-top: -75px;width: 18px;height: 1100px;}
+.yihaodianIconL {background: url(d_iconno.gif) no-repeat 0 0;margin-top: -525px;width: 18px;height: 1100px;}
+.dangdangIconL {background: url(d_iconno.gif) no-repeat 0 0;margin-top: -500px;width: 18px;height: 1100px;}
+.guomeiIconL {background: url(d_iconno.gif) no-repeat 0 0;margin-top: -450px;width: 18px;height: 1100px;}
 ul.filterUl{list-style:none;margin:0px;}
 ul.filterUl li{float:left;line-height:43px;height:43px;}
 ul.filterUl li.icon{float:left;line-height:25px;height:25px;}
