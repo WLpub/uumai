@@ -18,11 +18,7 @@
 			type: "customerreview",
 			name: "评论数"
 		}];
-		//show typePanel
-		$scope.typePanelClass = "typePanelOpen";
-		$scope.switchPanel = function(){
-			$scope.typePanelClass = {"typePanelOpen":"typePanelClose","typePanelClose":"typePanelOpen"}[$scope.typePanelClass];
-		};
+		
 		$scope.resetOrder = function(order){
 			if( $scope.predicate == order){
 				$scope.predicate = "-" + order;
@@ -85,7 +81,9 @@
 		};
 		//search shopCate
 		$scope.shopCate = function(){
+			if($scope.typePanelClass == "typePanelOpen"){
 				getCateList();
+			}			
 				getShopList();
 		};
 		
@@ -117,9 +115,12 @@
 		$scope.shopShow = false;
 		//http request for getting shop list
 		var getShopList = function(callback){
+			if(!!!($scope.searchWords||$rootScope.searchWords)){
+				return;
+			}
 			var para = {
 				"query":  { 
-					"match" : { "title" : $rootScope.searchWords||"" }
+					"match" : { "title" : $scope.searchWords||$rootScope.searchWords||"" }
 				 },
 				 "aggs": {
 					"website": {
@@ -129,29 +130,33 @@
 					}
 				  }
 			};
-			$http({
-				method: 'GET',
+			$.ajax({  
+				type:'post',      
 				url: 'http://10.182.111.208:9200/uumaiproduct_index/uumaiproduct/_search?search_type=count',
-				params: para
-			}).success(
-				function(data){
-					if(data.hits.hits.length<1){
-							data.hits.hits = [{"key": 1,"doc_count": 6796},{"key": 2,"doc_count": 6796},{"key": 3,"doc_count": 6796},{"key": 4,"doc_count": 6796},
-											{"key": 5,"doc_count": 6796},{"key": 6,"doc_count": 6796},{"key": 7,"doc_count": 6796}];
-					}
+				data:JSON.stringify(para),    
+				dataType:'json', 
+				contentType: 'application/json',				
+				success:function(data){
 					$scope.shopList=[];
-					for(var i = 0;i<data.hits.hits.length;i++){
-						$scope.shopList.push({'name':data.hits.hits[i].key,'class':$scope.getShopClass(data.hits.hits[i].key,true)});
+					for(var i = 0;i<data.aggregations.website.buckets.length;i++){
+						$scope.shopList.push({'name':data.aggregations.website.buckets[i].key,'class':$scope.getShopClass(data.aggregations.website.buckets[i].key,true)});
 					}
+					$scope.$apply();
 				}
-			);
+			});  
 		};
 		
 		//http request for getting cate list
 		var getCateList = function(callback){	
+			if($scope.typePanelClass == "typePanelClose"){
+				return;
+			}
+			if(!!!($scope.searchWords||$rootScope.searchWords)){
+				return;
+			}
 			var para = {
 				"query":  { 
-								"match" : { "title" : $rootScope.searchWords||"apple iphone" }
+								"match" : { "title" : $scope.searchWords||$rootScope.searchWords||"" }
 						},
 			 "sort": [
 				{ "category_quanzhong": { "order": "desc" }},
@@ -165,31 +170,35 @@
 					}
 				  }
 			};
-			$http({
-				method: 'GET',
+			$.ajax({  
+				type:'post',      
 				url: 'http://10.182.111.208:9200/uumaiproduct_index/uumaiproduct/_search?search_type=count',
-				params: para
-			}).success(
-				function(data){
+				data:JSON.stringify(para),    
+				dataType:'json', 
+				contentType: 'application/json',		
+				success:function(data){  
 					$scope.cateList=[];
-					if(data.hits.hits.length<1){
-							data.hits.hits = [{"name": 1,"count": 6796},{"name": 2,"count": 6796},{"name": 3,"count": 6796},{"name": 4,"count": 6796},
-											{"name": 5,"count": 6796},{"name": 6,"count": 6796},{"name": 7,"count": 6796}];
+					for(var i = 0;i<data.aggregations.category.buckets.length;i++){
+							$scope.cateList.push($.extend(data.aggregations.category.buckets[i],{'class':'checked'}));
 					}
-					for(var i = 0;i<data.hits.hits.length;i++){
-							$scope.cateList.push($.extend(data.hits.hits[i],{'class':'checked'}));
-					}
-				}
-			);
+					$scope.$apply();
+				}  
+			});  
 		};
 		
 		// http request for getting page date
 		var getPageData = function(){
-			if(!!!$rootScope.searchWords) return;
-			var website = [];
+			
+			if(!!!$scope.searchWords||!!!$rootScope.searchWords) return;
+			var website = [],category=[];
 			for(var i in $scope.shopList){
 				if($scope.shopList[i]['class'].indexOf('IconL')<0){
 					website.push($scope.shopList[i].name);
+				}
+			}
+			for(var j in $scope.cateList){
+				if($scope.cateList[j]['class']=='checked'){
+					category.push($scope.cateList[j].key);
 				}
 			}
 			var sort  = { "category_quanzhong": { "order": "desc" }};
@@ -212,6 +221,16 @@
 					sort  = { "customerreview": { "order": "asc" }};
 				break;
 			}
+			var and = [
+					{ "terms": { "instock": [(!!$scope.highFilter?1:0)] }},
+					{ "terms": { "ziying": [(!!$scope.lowFilter?1:0)] }}
+			];
+			if(website.length>0){
+				and.push({ "terms": { "website": website}});
+			}
+			if(category.length>0){
+				and.push({ "terms": { "category": category}});
+			}
 			var para = {
 				"from" : $scope.currentPage*20||0,
 				"size" : 20,
@@ -221,11 +240,7 @@
 								"match" : { "title" : $rootScope.searchWords }
 						},
 						"filter": {
-							"and" : [
-								  { "terms": { "website": website}},
-								  { "terms": { "instock": [(!!$scope.highFilter?1:0)] }},
-								  { "terms": { "ziying": [(!!$scope.lowFilter?1:0)] }}
-							 ]
+							"and" : and
 						 }
 					}
 				},
@@ -233,32 +248,13 @@
 				sort,"_score"
 			   ]
 			};
-			console.log(para);
-			/*var para = {searchWords : $rootScope.searchWords,
-						mailToChina: $scope.highFilter?1:0,
-						orderByText : $scope.predicate||'comprehensive',
-						currentPage: $scope.currentPage||1,
-						shopFilter : [],
-						cateFilter : []
-			};
-			if(!!$scope.lowFilter){para.filterText = $scope.lowFilter;}
-			for(var i in $scope.shopList){
-				if($scope.shopList[i]['class'].indexOf('IconL')<0){
-					para.shopFilter.push($scope.shopList[i].name);
-				}
-			}
-			for(var i in $scope.cateList){
-				if($scope.cateList[i]['class']=='checked'){
-					para.cateFilter.push($scope.cateList[i].name);
-				}
-			}
-			*/
-			$http({
-				method: 'GET',
+			$.ajax({  
+				type:'post',      
 				url: 'http://10.182.111.208:9200/uumaiproduct_index/uumaiproduct/_search',
-				params: para
-			}).success(
-				function(data){
+				data:JSON.stringify(para),    
+				dataType:'json', 
+				contentType: 'application/json',		
+				success:function(data){
 					var goodData = [];
 					for(var i = 0;i<data.hits.hits.length;i++) {
 						data.hits.hits[i]._source.pid = data.hits.hits[i]._id;
@@ -288,15 +284,21 @@
 					$scope.hideIfEmpty = true;
 					$scope.scrollTop = true;
 					$scope.showPrevNext = false;
+					$scope.$apply();
 				}
-			);
+			});  
 		};
 
 		// event listener
 		$scope.handleEvent = function (e) {
             $scope.data.columnColor = e.type == "mouseover" ? "Green" : "Blue";
 		};
-		
+		//show typePanel
+		$scope.typePanelClass = "typePanelClose";
+		$scope.switchPanel = function(){
+			$scope.typePanelClass = {"typePanelOpen":"typePanelClose","typePanelClose":"typePanelOpen"}[$scope.typePanelClass];
+			getCateList();
+		};
 		//get shop Class 1，2，3，4，5，6，7    分别代表：amazon,dangdang, gome,jd,suning, yhd, yixun .
 		$scope.shopName = {'1':'亚马逊','2':'当 当网','3':'国美 电器','4':'京东商城','5':'苏宁电器','6':'一 号店','7':'易迅'};
 		$scope.getShopClass = function(shop,state){
@@ -340,14 +342,12 @@
 		};
 		$scope.switchCate = function(name,classOld){
 			for(var i=0;i<$scope.cateList.length;i++){
-				if($scope.cateList[i].name==name){
+				if($scope.cateList[i].key==name){
 					$scope.cateList[i]['class'] = (classOld=='checked'?'':'checked');
 				}
 			}
 			getPageData();
 		};
-		getCateList();
-		getShopList();
     }
 
 })();
