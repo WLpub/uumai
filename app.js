@@ -3,6 +3,10 @@ var path = require('path');
 var http = require('http');
 var url = require('url');
 var app = express();
+var superagent = require('superagent');
+var bodyParser = require('body-parser');
+
+
 
 app.set('port',process.env.PORT||8080);
 app.set('views',path.join(__dirname,'views'));
@@ -40,6 +44,20 @@ app.get('/app',function(req,res){
 	res.sendFile(path.join(__dirname,'/index.html'));
 });
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }))
+
+app.post('/api/search', function (req, res) {   
+	console.log(req.body);
+    var sreq = superagent.post('http://10.182.111.208:9200/uumaiproduct_index/uumaiproduct/_search').send(req.body);
+    sreq.pipe(res);
+    sreq.on('end', function(){
+        //console.log('done');
+    });
+});
+
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 })
+

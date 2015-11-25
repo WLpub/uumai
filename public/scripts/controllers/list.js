@@ -119,9 +119,13 @@
 				return;
 			}
 			var para = {
-				"query":  { 
-					"match" : { "title" : $scope.searchWords||$rootScope.searchWords||"" }
-				 },
+				  "query":  { 
+    		            "match" : { "title" : {
+	                            "query":                $scope.searchWords||$rootScope.searchWords||"",
+                    	       "minimum_should_match": "75%"
+            	          }
+                	  }
+            	 },
 				 "aggs": {
 					"website": {
 					  "terms": {
@@ -132,7 +136,7 @@
 			};
 			$.ajax({  
 				type:'post',      
-				url: 'http://10.182.111.208:9200/uumaiproduct_index/uumaiproduct/_search?search_type=count',
+				url: 'api/search?search_type=count',
 				data:JSON.stringify(para),    
 				dataType:'json', 
 				contentType: 'application/json',				
@@ -156,8 +160,12 @@
 			}
 			var para = {
 				"query":  { 
-								"match" : { "title" : $scope.searchWords||$rootScope.searchWords||"" }
-						},
+    		            "match" : { "title" : {
+	                            "query":                $scope.searchWords||$rootScope.searchWords||"",
+                    	       "minimum_should_match": "75%"
+            	          }
+                	  }
+            	 },
 			 "sort": [
 				{ "category_quanzhong": { "order": "desc" }},
 			   "_score"
@@ -172,7 +180,7 @@
 			};
 			$.ajax({  
 				type:'post',      
-				url: 'http://10.182.111.208:9200/uumaiproduct_index/uumaiproduct/_search?search_type=count',
+				url: 'api/search?search_type=count',
 				data:JSON.stringify(para),    
 				dataType:'json', 
 				contentType: 'application/json',		
@@ -222,8 +230,8 @@
 				break;
 			}
 			var and = [
-					{ "terms": { "instock": [(!!$scope.highFilter?1:0)] }},
-					{ "terms": { "ziying": [(!!$scope.lowFilter?1:0)] }}
+					{ "terms": { "instock": [(!!$scope.highFilter?1:1)] }}
+					//{ "terms": { "ziying": [(!!$scope.lowFilter?1:1)] }}
 			];
 			if(website.length>0){
 				and.push({ "terms": { "website": website}});
@@ -234,10 +242,14 @@
 			var para = {
 				"from" : $scope.currentPage*20||0,
 				"size" : 20,
-				  "query": {
+ 				  "query": {
 					"filtered": {
 						"query":  { 
-								"match" : { "title" : $rootScope.searchWords }
+								"match" : { "title" : {
+                          "query":                $rootScope.searchWords,
+                           "minimum_should_match": "75%"
+                      		}	 
+                      		}
 						},
 						"filter": {
 							"and" : and
@@ -250,7 +262,7 @@
 			};
 			$.ajax({  
 				type:'post',      
-				url: 'http://10.182.111.208:9200/uumaiproduct_index/uumaiproduct/_search',
+				url: 'api/search',
 				data:JSON.stringify(para),    
 				dataType:'json', 
 				contentType: 'application/json',		
