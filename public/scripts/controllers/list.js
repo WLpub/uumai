@@ -246,8 +246,8 @@
 					"filtered": {
 						"query":  { 
 								"match" : { "title" : {
-                          "query":                $rootScope.searchWords,
-                           "minimum_should_match": "75%"
+                            "query":                $rootScope.searchWords,
+                           "minimum_should_match": "80%"
                       		}	 
                       		}
 						},
