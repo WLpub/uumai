@@ -369,6 +369,7 @@
 						$scope.shopList[i]['class'] = (classOld.charAt(length-1)=='L'?classOld:classOld+'L');
 					}
 				}
+				getPageData();
 				return;
 			}
 			for(var i=0;i<$scope.shopList.length;i++){
