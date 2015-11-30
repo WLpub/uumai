@@ -104,10 +104,10 @@
                 <th>商品名称</th>
                 <th>价格</th>
 				<th>商城</th>
-                <th>有货</th>
-                <th>自营</th>
+                <th>库存</th>
+                <th></th>
                 <th>评论数</th>
-                <th>更新时间</th> 
+                <th>更新</th> 
             </thead>
             <tbody>
                 <tr ng-repeat="list in goodBlocks.items">
@@ -117,11 +117,11 @@
                             <img ng-src="{{list.imgsrc}}" alt="" style="height:30px;">
                        </a> 
                     </td>
-                    <td><a href="{{list.url}}"  target="_blank" ng-bind="list.title| limitTo:30"></a></td>
+                    <td><a href="{{list.url}}"  target="_blank" ng-bind="list.title| limitTo:200"></a></td>
                     <td ng-bind="list.price | currency:'￥'" class="priceColor"></td>
                     <td ng-bind="shopName[list.website]"></td>
-					<td ng-bind="{'1':'有货','0':'无货'}[list.instock]"></td>
-                    <td ng-bind="{1:'自营',0:'非自营'}[list.ziying]"></td>
+					<td ng-bind="{'1':'现货','0':'无货'}[list.instock]"></td>
+                    <td ng-bind="{1:'自营',0:'第三方'}[list.ziying]"></td>
                     <td ng-bind="list.customerreview | limitTo:4"></td>
                     <td ng-bind="list.updatetime"></td>  
                 </tr>
