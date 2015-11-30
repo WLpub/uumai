@@ -219,10 +219,10 @@
 					sort  = { "category_quanzhong": { "order": "asc" }};
 				break;
 				case 'price':
-					sort  = { "price": { "order": "desc" }};
+					sort  = { "price": { "order": "asc" }};
 				break;
 				case '-price':
-					sort  = { "price": { "order": "asc" }};
+					sort  = { "price": { "order": "desc" }};
 				break;
 				case 'customerreview':
 					sort  = { "customerreview": { "order": "desc" }};
