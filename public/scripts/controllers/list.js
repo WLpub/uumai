@@ -245,8 +245,8 @@
 				and.push({ "terms": { "category": category}});
 			}
 			var para = {
-				"from" : $scope.currentPage*20||0,
-				"size" : 20,
+				"from" : $scope.currentPage*21||0,
+				"size" : 21,
  				  "query": {
 					"filtered": {
 						"query":  { 
@@ -288,7 +288,7 @@
 					$scope.showGoods($scope.viewType);
 
 					if(!!!$scope.pageSize){
-						$scope.pageSize = 20;
+						$scope.pageSize = 21;
 					}
 					if(!!!$scope.currentPage){
 						$scope.currentPage = 1;
@@ -317,7 +317,7 @@
 			getCateList();
 		};
 		//get shop Class 1，2，3，4，5，6，7    分别代表：amazon,dangdang, gome,jd,suning, yhd, yixun .
-		$scope.shopName = {'1':'亚马逊','2':'当 当网','3':'国美 电器','4':'京东商城','5':'苏宁电器','6':'一 号店','7':'易迅'};
+		$scope.shopName = {'1':'amazonIcon','2':'dangdangIcon','3':'guomeiIcon','4':'JDIcon','5':'suningIcon','6':'yihaodianIcon','7':'yixunIcon'};
 		$scope.getShopClass = function(shop,state){
 			var shopClass = {
 				'1':{true:'amazonIcon',false:'amazonIconL'},

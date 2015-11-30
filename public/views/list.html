@@ -88,7 +88,7 @@
                     <p ng-bind="list.price| currency:'￥'" class="goods_price"></p>
                     <section class="grayDescrib">
                         <p class="listSales">评论数<span ng-bind="list.customerreview"></span></p>
-						<p class="listSales" style="float:right">&nbsp;&nbsp;&nbsp;&nbsp;<span ng-bind="shopName[list.website]"></span></p>
+						<ul class="listSales" style="float:right;margin-top:-15px;"><li class="icon" style="float:right;"><div ng-class="shopName[list.website]"></div></li></ul>
                     </section>
                 </div>
             </div>
@@ -117,9 +117,9 @@
                             <img ng-src="{{list.imgsrc}}" alt="" style="height:30px;">
                        </a> 
                     </td>
-                    <td><a href="{{list.url}}"  target="_blank" ng-bind="list.title| limitTo:200"></a></td>
+                    <td><a href="{{list.url}}"  target="_blank" ng-bind="list.title| limitTo:45"></a></td>
                     <td ng-bind="list.price | currency:'￥'" class="priceColor"></td>
-                    <td ng-bind="shopName[list.website]"></td>
+                    <td><ul style='margin-top:-15px;'><li class="icon"><div ng-class="shopName[list.website]"></div></li><ul></td>
 					<td ng-bind="{'1':'现货','0':'无货'}[list.instock]"></td>
                     <td ng-bind="{1:'自营',0:'第三方'}[list.ziying]"></td>
                     <td ng-bind="list.customerreview | limitTo:4"></td>
