@@ -32,12 +32,12 @@
                 <label class="form_label">高级过滤：</label>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" ng-model="highFilter" ng-click="shopCate()"> 直邮中国
+                        <input type="checkbox" ng-model="highFilter" ng-click="shopCate()"> 包括第三方商家
                     </label>
                 </div>
 				<div class="checkbox">
                     <label>
-                        <input type="checkbox" ng-model="lowFilter" ng-click="shopCate()"> 自营
+                        <input type="checkbox" ng-model="lowFilter" ng-click="shopCate()"> 包括缺货及预订
                     </label>
                 </div>
                 <label class="form_label">视图切换：</label>
@@ -55,7 +55,7 @@
 				<ul class="filterUl">
 				<li><label class="form-label labelLeft">商城过滤:</label></li>
 				<li ng-repeat="shop in shopList" class="icon" ng-click="switchShop(shop.name,shop.class)"><div ng-class="shop.class"></div></li>
-				<li>&nbsp;&nbsp;&nbsp;&nbsp;<div class="btn btn-default btn-xs" ng-click="switchShop(1,1,1)">全选</div>&nbsp;&nbsp;&nbsp;&nbsp;<div class="btn btn-default btn-xs"  ng-click="switchShop(0,0,0)">全不选</div></li>
+				<li>&nbsp;&nbsp;&nbsp;&nbsp;<div class="btn btn-default btn-xs" ng-click="switchShop(1,1,1)">全选</div>&nbsp;&nbsp;&nbsp;&nbsp;<div class="btn btn-default btn-xs"  ng-click="switchShop(0,0,0)">反选</div></li>
 				</ul>
 			</div>
 		</div>	
@@ -64,7 +64,7 @@
 		<div class="border" class="col-md-12" ></div>
 		<div id="typePanel" class="collapse col-md-12" >
 		 <ul class="filterUl">
-		 <li ng-repeat="cate in cateList"><input type="checkbox" ng-click="switchCate(cate.key,cate.class)" checked="cate.class"/><font ng-bind="cate.key+'['+cate.doc_count+']'"></font></li>
+		 <li ng-repeat="cate in cateList"><input type="checkbox" ng-click="switchCate(cate.key,cate.class)"/><font ng-bind="cate.key+'['+cate.doc_count+']'"></font></li>
 		 </ul>
 		</div>
 		<div type="button" class="col-md-12 {{typePanelClass}}" data-toggle="collapse"  data-target="#typePanel" ng-click="switchPanel()">
@@ -76,7 +76,7 @@
     </div>
     <!-- goods Block -->
     <div class="goodList row" ng-show="showBlock">
-        <div class="col-sm-6 col-md-4 col-lg-3" ng-repeat="list in goodBlocks.items | orderBy:predicate">
+        <div class="col-sm-6 col-md-4 col-lg-3" ng-repeat="list in goodBlocks.items">
             <div class="thumbnail">
                 <a href="{{list.url}}" target="_blank">
                     <img ng-src="{{list.bigimgsrc}}" alt="" class="carousel-inner img-thumbnail" style="height: 220px;">
@@ -110,7 +110,7 @@
                 <th>更新</th> 
             </thead>
             <tbody>
-                <tr ng-repeat="list in goodBlocks.items | orderBy:predicate">
+                <tr ng-repeat="list in goodBlocks.items">
                  <!--    <td ng-bind="list.logo" class="logoColor"></td> -->
                     <td>
                        <a href="{{list.url}}" target="_blank">

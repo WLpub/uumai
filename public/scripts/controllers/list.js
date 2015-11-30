@@ -75,7 +75,7 @@
 		  */
 		$scope.DoCtrlPagingAct = function(page, pageSize){
 			
-			$scope.currentPage = page;
+			$scope.currentPage = page>1?page-1:0;
 			$scope.pageSize = pageSize;
 			getPageData();
 		};
@@ -93,6 +93,7 @@
 				$scope.shopCate();
 			}
 			$rootScope.searchWords = $scope.searchWords;
+			$scope.currentPage = 0;
 			getPageData();
 		};
 
@@ -109,6 +110,7 @@
 		$scope.highFilter = false;
 		$scope.lowFilter = null;
 		$scope.$watch('highFilter + lowFilter + predicate', function(a,b){
+			$scope.currentPage = 0;
 			getPageData();
 		});
 		
@@ -187,7 +189,7 @@
 				success:function(data){  
 					$scope.cateList=[];
 					for(var i = 0;i<data.aggregations.category.buckets.length;i++){
-							$scope.cateList.push($.extend(data.aggregations.category.buckets[i],{'class':'checked'}));
+							$scope.cateList.push($.extend(data.aggregations.category.buckets[i],{'class':''}));
 					}
 					$scope.$apply();
 				}  
@@ -229,10 +231,13 @@
 					sort  = { "customerreview": { "order": "asc" }};
 				break;
 			}
-			var and = [
-					{ "terms": { "instock": [(!!$scope.highFilter?1:1)] }}
-					//{ "terms": { "ziying": [(!!$scope.lowFilter?1:1)] }}
-			];
+			var and = [];
+			if(!!!$scope.highFilter){
+				and.push({ "terms": { "ziying": [1] }});
+			}
+			if(!!!$scope.lowFilter){
+				and.push({ "terms": { "instock": [1] }});
+			}
 			if(website.length>0){
 				and.push({ "terms": { "website": website}});
 			}
@@ -328,11 +333,12 @@
 		
 		$scope.switchShop = function(name,classOld,type){
 			var length = classOld.length;
+			$scope.currentPage = 0;
 			if(type==0){
 				for(var i=0;i<$scope.shopList.length;i++){
 					length = $scope.shopList[i]['class'].length;
 					classOld = $scope.shopList[i]['class'];
-					$scope.shopList[i]['class'] = (classOld.charAt(length-1)=='L'?classOld:classOld+"L");
+					$scope.shopList[i]['class'] = (classOld.charAt(length-1)=='L'?classOld.slice(0,length-1):classOld+"L");
 				}
 				getPageData();
 				return;
@@ -345,6 +351,26 @@
 				getPageData();
 				return;
 			}
+			var firstAll = true;
+			var length1= 0,classOld1="";
+			for(var i=0;i<$scope.shopList.length;i++){
+				length1 = $scope.shopList[i]['class'].length;
+				classOld1 = $scope.shopList[i]['class'];
+				firstAll = firstAll&&(classOld1.charAt(length1-1)!='L');
+			}
+			if(firstAll){
+				for(var i=0;i<$scope.shopList.length;i++){
+					length = $scope.shopList[i]['class'].length;
+					classOld = $scope.shopList[i]['class'];
+					if($scope.shopList[i].name==name){
+					console.log(name);
+						$scope.shopList[i]['class'] = (classOld.charAt(length-1)=='L'?classOld.slice(0,length-1):classOld);
+					}else{
+						$scope.shopList[i]['class'] = (classOld.charAt(length-1)=='L'?classOld:classOld+'L');
+					}
+				}
+				return;
+			}
 			for(var i=0;i<$scope.shopList.length;i++){
 			 if($scope.shopList[i].name==name){
 				$scope.shopList[i]['class'] = (classOld.charAt(length-1)=='L'?classOld.slice(0,length-1):classOld+"L");
@@ -353,6 +379,7 @@
 			getPageData();
 		};
 		$scope.switchCate = function(name,classOld){
+			$scope.currentPage = 0;
 			for(var i=0;i<$scope.cateList.length;i++){
 				if($scope.cateList[i].key==name){
 					$scope.cateList[i]['class'] = (classOld=='checked'?'':'checked');
