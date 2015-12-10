@@ -32,12 +32,12 @@
                 <label class="form_label">高级过滤：</label>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" ng-model="highFilter" ng-click="shopCate()"> 包括第三方商家
+                        <input type="checkbox" ng-model="highFilter"> 包括第三方商家
                     </label>
                 </div>
 				<div class="checkbox">
                     <label>
-                        <input type="checkbox" ng-model="lowFilter" ng-click="shopCate()"> 包括缺货及预订
+                        <input type="checkbox" ng-model="lowFilter"> 包括缺货及预订
                     </label>
                 </div>
                 <label class="form_label">视图切换：</label>
@@ -87,7 +87,7 @@
                     </p>
                     <p ng-bind="list.price| currency:'￥'" class="goods_price"></p>
                     <section class="grayDescrib">
-                        <p class="listSales">评论数<span ng-bind="list.customerreview"></span></p>
+                        <p class="listSales">评论数<span ng-bind="{{list.customerreview | limitTo:5}}+'条'"></span></p>
 						<ul class="listSales" style="float:right;margin-top:-15px;"><li class="icon" style="float:right;"><div ng-class="shopName[list.website]"></div></li></ul>
                     </section>
                 </div>
@@ -105,9 +105,9 @@
                 <th>价格</th>
 				<th>商城</th>
                 <th>库存</th>
-                <th></th>
+                <th>货源</th>
                 <th>评论数</th>
-                <th>更新</th> 
+                <th>更新时间</th> 
             </thead>
             <tbody>
                 <tr ng-repeat="list in goodBlocks.items">
@@ -120,10 +120,10 @@
                     <td><a href="{{list.url}}"  target="_blank" ng-bind="list.title| limitTo:45"></a></td>
                     <td ng-bind="list.price | currency:'￥'" class="priceColor"></td>
                     <td><ul style='margin-top:-15px;'><li class="icon"><div ng-class="shopName[list.website]"></div></li><ul></td>
-					<td ng-bind="{'1':'现货','0':'无货'}[list.instock]"></td>
+					<td ng-class="{'1':'green','0':'black'}[list.instock]" ng-bind="{'1':'现货','0':'无货'}[list.instock]"></td>
                     <td ng-bind="{1:'自营',0:'第三方'}[list.ziying]"></td>
-                    <td ng-bind="list.customerreview | limitTo:4"></td>
-                    <td ng-bind="list.updatetime"></td>  
+                    <td ng-bind="{{list.customerreview | limitTo:5}}+'条'"></td>
+                    <td ng-bind="showUpdate(list.updatetime)"></td>  
                 </tr>
             </tbody>
         </table>

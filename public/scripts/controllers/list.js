@@ -136,6 +136,7 @@
 					}
 				  }
 			};
+			console.log(para);
 			$.ajax({  
 				type:'post',      
 				url: 'api/search?search_type=count',
@@ -388,6 +389,20 @@
 			}
 			getPageData();
 		};
+		$scope.showUpdate = function(updateTime){
+			var oldDate = new Date(updateTime);
+			var today = new Date();
+			console.log(updateTime);
+			var t = (today-oldDate)/60000||0;
+			if(t>1440){
+				return (parseInt(t/1440)+1)+'天前';
+			}else if(t>60){
+				return (parseInt(t/60)+1)+'小时前';
+			}else{
+				return (parseInt(t)+1)+"分前";
+			}
+		};
+		$scope.shopCate();
     }
 
 })();
