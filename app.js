@@ -40,9 +40,10 @@ app.get('/feedback/:word',function(req,res){
 	res.status(200).end("success!");
 });
 
-app.get('/app',function(req,res){
+app.get('/',function(req,res){
 	res.sendFile(path.join(__dirname,'/index.html'));
 });
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
