@@ -136,7 +136,7 @@
 					}
 				  }
 			};
-			console.log(para);
+			// console.log(para);
 			$.ajax({  
 				type:'post',      
 				url: 'api/search?search_type=count',
@@ -246,8 +246,8 @@
 				and.push({ "terms": { "category": category}});
 			}
 			var para = {
-				"from" : $scope.currentPage*21||0,
-				"size" : 21,
+				"from" : $scope.currentPage*20||0,
+				"size" : 20,
  				  "query": {
 					"filtered": {
 						"query":  { 
@@ -289,7 +289,7 @@
 					$scope.showGoods($scope.viewType);
 
 					if(!!!$scope.pageSize){
-						$scope.pageSize = 21;
+						$scope.pageSize = 20;
 					}
 					if(!!!$scope.currentPage){
 						$scope.currentPage = 1;
@@ -364,7 +364,7 @@
 					length = $scope.shopList[i]['class'].length;
 					classOld = $scope.shopList[i]['class'];
 					if($scope.shopList[i].name==name){
-					console.log(name);
+					// console.log(name);
 						$scope.shopList[i]['class'] = (classOld.charAt(length-1)=='L'?classOld.slice(0,length-1):classOld);
 					}else{
 						$scope.shopList[i]['class'] = (classOld.charAt(length-1)=='L'?classOld:classOld+'L');

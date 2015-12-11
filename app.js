@@ -49,7 +49,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.post('/api/search', function (req, res) {   
-	console.log(req.body);
+	// console.log(req.body);
     var sreq = superagent.post('http://10.182.111.208:9200/uumaiproduct_index/uumaiproduct/_search').send(req.body);
     sreq.pipe(res);
     sreq.on('end', function(){
