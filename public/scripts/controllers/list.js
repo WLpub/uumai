@@ -25,6 +25,7 @@
 			}else{
 				$scope.predicate = order;
 			}
+			$scope.changeFilter();
 		};
 		$scope.setSelectedClass = function(type){
 			if ( $scope.predicate == type || $scope.predicate == "-"+type ){
@@ -91,6 +92,9 @@
 		$scope.searchGoods = function(){
 			if($rootScope.searchWords!=$scope.searchWords){
 				$scope.shopCate();
+				$scope.highFilter = false;
+				$scope.lowFilter = null;
+				
 			}
 			$rootScope.searchWords = $scope.searchWords;
 			$scope.currentPage = 0;
@@ -109,10 +113,10 @@
 		//filter && loading Page
 		$scope.highFilter = false;
 		$scope.lowFilter = null;
-		$scope.$watch('highFilter + lowFilter + predicate', function(a,b){
+		$scope.changeFilter = function(){
 			$scope.currentPage = 0;
 			getPageData();
-		});
+		};
 		
 		$scope.shopShow = false;
 		//http request for getting shop list
@@ -199,7 +203,6 @@
 		
 		// http request for getting page date
 		var getPageData = function(){
-			
 			if(!!!$scope.searchWords||!!!$rootScope.searchWords) return;
 			var website = [],category=[];
 			for(var i in $scope.shopList){

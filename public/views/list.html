@@ -19,47 +19,28 @@
     </div>
 
     <div class="row">
-        <!-- sort buttons -->
-        <div class="col-md-5">
-            <input type="hidden" ng-model="predicate" ng-init="predicate='category_quanzhong'" >
-            <div class="btn-group">
-                <button class="btn btn-default" ng-class="setSelectedClass(btn.type)" ng-repeat="btn in goodsOrder" ng-click="resetOrder(btn.type)" ng-bind="btn.name"></button>
-            </div>
-        </div>        
+         
         <!-- filter && view port -->
         <div class="col-md-7">
-            <div class="form-inline alignRight">
-                <label class="form_label">高级过滤：</label>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="highFilter"> 包括第三方商家
-                    </label>
-                </div>
-				<div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="lowFilter"> 包括缺货及预订
-                    </label>
-                </div>
+			<div class="form-inline">
+				<ul class="filterUl">
+					<li><label class="form_label">商城过滤:</label></li>
+					<li ng-repeat="shop in shopList" class="icon" ng-click="switchShop(shop.name,shop.class)"><div ng-class="shop.class"></div></li>
+					<li>&nbsp;&nbsp;&nbsp;&nbsp;<div class="btn btn-default btn-xs" ng-click="switchShop(1,1,1)">全选</div>&nbsp;&nbsp;&nbsp;&nbsp;<div class="btn btn-default btn-xs"  ng-click="switchShop(0,0,0)">反选</div></li>
+				</ul>
+			</div>
+           
+        </div>
+		<div class="col-md-5">
+		 <div class="form-inline  alignRight">
                 <label class="form_label">视图切换：</label>
                 <div class="iconbtn-group">
                     <a class="btn icon-btn" ng-click="showGoods('list')" ng-class="setView('list')"><span class="glyphicon glyphicon-align-justify"></span></a>
                     <a class="btn icon-btn" ng-click="showGoods('block')" ng-class="setView('block')"><span class="glyphicon glyphicon-th"></span></a>
                 </div>
             </div>
-        </div>
+		</div>
     </div>
-	<!-- ng-show="shopShow"-->
-	<div class="row">
-		<div class="col-md-12">
-			<div  class="form-inline">
-				<ul class="filterUl">
-				<li><label class="form-label labelLeft">商城过滤:</label></li>
-				<li ng-repeat="shop in shopList" class="icon" ng-click="switchShop(shop.name,shop.class)"><div ng-class="shop.class"></div></li>
-				<li>&nbsp;&nbsp;&nbsp;&nbsp;<div class="btn btn-default btn-xs" ng-click="switchShop(1,1,1)">全选</div>&nbsp;&nbsp;&nbsp;&nbsp;<div class="btn btn-default btn-xs"  ng-click="switchShop(0,0,0)">反选</div></li>
-				</ul>
-			</div>
-		</div>	
-	</div>
 	<div class="row">
 		<div class="border" class="col-md-12" ></div>
 		<div id="typePanel" class="collapse col-md-12" >
@@ -67,9 +48,35 @@
 		 <li ng-repeat="cate in cateList"><input type="checkbox" ng-click="switchCate(cate.key,cate.class)"/><font ng-bind="cate.key+'['+cate.doc_count+']'"></font></li>
 		 </ul>
 		</div>
-		<div type="button" class="col-md-12 {{typePanelClass}}" data-toggle="collapse"  data-target="#typePanel" ng-click="switchPanel()">
+		<div type="button" id="panelBtn" class="col-md-12 {{typePanelClass}}" data-toggle="collapse"  data-target="#typePanel" ng-click="switchPane()">
 		</div>
 	</div>
+	<!-- ng-show="shopShow"-->
+	<div class="row">
+		<div class="col-md-7">
+			<div  class="form-inline">
+				<label class="form_label">高级过滤：</label>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="highFilter" ng-change="changeFilter()"> 包括第三方商家
+                    </label>
+                </div>
+				<div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="lowFilter" ng-change="changeFilter()"> 包括缺货及预订
+                    </label>
+                </div>
+			</div>
+		</div>	
+		 <!-- sort buttons -->
+        <div class="col-md-5 alignRight">
+            <input type="hidden" ng-model="predicate" ng-init="predicate='category_quanzhong'" >
+            <div class="btn-group">
+                <button class="btn btn-default" ng-class="setSelectedClass(btn.type)" ng-repeat="btn in goodsOrder" ng-click="resetOrder(btn.type)" ng-bind="btn.name"></button>
+            </div>
+        </div>      
+	</div>
+	
     <div class="row">
         <br/>
      <div class="col-md-2"><div class="form-inline alignLeft" ng-init="currentPage=0;total=0;" ng-bind="'第'+currentPage+'页 ,共'+total+'条'"></div></div>

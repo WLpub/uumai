@@ -22,11 +22,11 @@ body{position: relative;font-family: Arial,Verdana;}
 	box-shadow: none!important;
 }
 .iconbtn-group{display: inline-block;}
-.icon-btn{font-size: 22px;color:#7B7B7B;display: inline-block; padding: 0 5px;}
+.icon-btn{font-size: 22px;color:#7B7B7B;display: inline-block;margin:0 -5px 0 -5px;}
 .icon-btn:hover{color:#d58512;}
 .orange{color:#ec971f;}
 .alignRight{text-align: right;}
-.form_label{margin-left: 15px;}
+.form_label{height:25px;line-height:25px;}
 .icon{float: left;width: 18px;height: 18px;line-height:18px;overflow: hidden;margin-left: 6px;margin-top:12px;}
 .appleIcon {background: url(d_icon.gif) no-repeat 0 0;margin-top: -1025px;width: 18px;height: 1100px;}
 .JDIcon {background: url(d_icon.gif) no-repeat 0 0;margin-top: -25px;width: 18px;height: 1100px;}
