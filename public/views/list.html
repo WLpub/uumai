@@ -48,12 +48,19 @@
 		 <li ng-repeat="cate in cateList"><input type="checkbox" ng-click="switchCate(cate.key,cate.class)"/><font ng-bind="cate.key+'['+cate.doc_count+']'"></font></li>
 		 </ul>
 		</div>
-		<div type="button" id="panelBtn" class="col-md-12 {{typePanelClass}}" data-toggle="collapse"  data-target="#typePanel" ng-click="switchPane()">
+		<div type="button" id="panelBtn" class="col-md-12 {{typePanelClass}}" data-toggle="collapse"  data-target="#typePanel" ng-click="switchPanel()">
 		</div>
 	</div>
 	<!-- ng-show="shopShow"-->
 	<div class="row">
-		<div class="col-md-7">
+		<!-- sort buttons -->
+        <div class="col-md-5">
+            <input type="hidden" ng-model="predicate" ng-init="predicate='category_quanzhong'" >
+            <div class="btn-group">
+                <button class="btn btn-default" ng-class="setSelectedClass(btn.type)" ng-repeat="btn in goodsOrder" ng-click="resetOrder(btn.type)" ng-bind="btn.name"></button>
+            </div>
+        </div> 
+		<div class="col-md-7 alignRight">
 			<div  class="form-inline">
 				<label class="form_label">高级过滤：</label>
                 <div class="checkbox">
@@ -67,14 +74,7 @@
                     </label>
                 </div>
 			</div>
-		</div>	
-		 <!-- sort buttons -->
-        <div class="col-md-5 alignRight">
-            <input type="hidden" ng-model="predicate" ng-init="predicate='category_quanzhong'" >
-            <div class="btn-group">
-                <button class="btn btn-default" ng-class="setSelectedClass(btn.type)" ng-repeat="btn in goodsOrder" ng-click="resetOrder(btn.type)" ng-bind="btn.name"></button>
-            </div>
-        </div>      
+		</div>	     
 	</div>
 	
     <div class="row">
@@ -92,11 +92,18 @@
                     <p class="listGoodDescrib">
                         <a href="{{list.url}}" target="_blank" ng-bind="list.title"></a>
                     </p>
-                    <p ng-bind="list.price| currency:'￥'" class="goods_price"></p>
-                    <section class="grayDescrib">
+					<p>
+						<font ng-bind="list.price| currency:'￥'" class="goods_price"></font>
+						<font ng-class="{'1':'green right','0':'black right'}[list.instock]" ng-bind="{'1':'现货','-1':'无货'}[list.instock]"></font>
+					</p>
+					<section class="grayDescrib">
                         <p class="listSales">评论数<span ng-bind="{{list.customerreview | limitTo:5}}+'条'"></span></p>
 						<ul class="listSales" style="float:right;margin-top:-15px;"><li class="icon" style="float:right;"><div ng-class="shopName[list.website]"></div></li></ul>
+						<p class="right" ng-bind="{'1':'自营-','-1':'第三方-'}[list.ziying]"></p>
                     </section>
+					<!--section class="right">更新时间：
+					<font ng-bind="showUpdate(list.updatetime)"></font>
+					</section-->
                 </div>
             </div>
         </div>
@@ -127,8 +134,8 @@
                     <td><a href="{{list.url}}"  target="_blank" ng-bind="list.title| limitTo:45"></a></td>
                     <td ng-bind="list.price | currency:'￥'" class="priceColor"></td>
                     <td><ul style='margin-top:-15px;'><li class="icon"><div ng-class="shopName[list.website]"></div></li><ul></td>
-					<td ng-class="{'1':'green','0':'black'}[list.instock]" ng-bind="{'1':'现货','0':'无货'}[list.instock]"></td>
-                    <td ng-bind="{1:'自营',0:'第三方'}[list.ziying]"></td>
+					<td ng-class="{'1':'green','0':'black'}[list.instock]" ng-bind="{'1':'现货','-1':'无货'}[list.instock]"></td>
+                    <td ng-bind="{'1':'自营','-1':'第三方'}[list.ziying]"></td>
                     <td ng-bind="{{list.customerreview | limitTo:5}}+'条'"></td>
                     <td ng-bind="showUpdate(list.updatetime)"></td>  
                 </tr>

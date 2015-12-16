@@ -94,7 +94,6 @@
 				$scope.shopCate();
 				$scope.highFilter = false;
 				$scope.lowFilter = null;
-				
 			}
 			$rootScope.searchWords = $scope.searchWords;
 			$scope.currentPage = 0;
@@ -406,6 +405,7 @@
 			}
 		};
 		$scope.shopCate();
+		$scope.searchGoods();
     }
 
 })();
