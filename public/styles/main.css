@@ -47,6 +47,18 @@ body{position: relative;font-family: Arial,Verdana;}
 .yihaodianIconL {background: url(d_iconno.gif) no-repeat 0 0;margin-top: -522px;width: 18px;height: 1100px;}
 .dangdangIconL {background: url(d_iconno.gif) no-repeat 0 0;margin-top: -500px;width: 18px;height: 1100px;}
 .guomeiIconL {background: url(d_iconno.gif) no-repeat 0 0;margin-top: -450px;width: 18px;height: 1100px;}
+
+.websiteLogoB{display: inline-block;width: 60px;height: 18px;overflow: hidden;}
+.JDLogo {background: url(website.png) no-repeat 0 -25px;background-size: 50px;}
+.amazonLogo {background: url(website.png) no-repeat 0 -50px;background-size: 50px;}
+.suningLogo {background: url(website.png) no-repeat 0 -125px;background-size: 50px;}
+.yixunLogo {background: url(website.png) no-repeat 0 -75px;background-size: 50px;}
+.yihaodianLogo{background: url(website.png) no-repeat 0 -200px;background-size: 50px;}
+.dangdangLogo {background: url(website.png) no-repeat 0 -175px;background-size: 50px;}
+.guomeiLogo{background: url(website.png) no-repeat 0 -150px;background-size: 50px;}
+
+.viewHistory{font-size:9px;pointer:cursor;padding-left:5px;}
+
 ul.filterUl{list-style:none;margin:0px;}
 ul.filterUl li{float:left;line-height:43px;height:43px;}
 ul.filterUl li.icon{float:left;line-height:25px;height:25px;}

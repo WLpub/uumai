@@ -107,11 +107,12 @@ exports.findAll = function(req, res){
 }
 
 exports.find = function (req, res){
-	console.log('id:'+req.params.id);
+	var tableName = req.params.id.split(':')[0];
+	var proid = req.params.id.split(':')[1];
+	var tableFind = db.collection(tableName);
 	res.setHeader('Access-Control-Allow-Origin','*');
-	table.findOne({_id:mongojs.ObjectId(req.params.id)} , function(err , doc){
+	tableFind.findOne({'_id':Number(proid)} , function(err , doc){
  		if(doc){
- 					//console.log('title:'+doc.title);
 		 			var record={};
 		 			record.pid=doc._id;
 		 			record.imgsrc=doc.imgsrc;
@@ -137,9 +138,10 @@ exports.find = function (req, res){
 		 			//record.quxian = "3" ;
 		 			record.priceTrend=doc.priceTrend;
 		 			if(!!!doc.priceTrend){record.priceTrend={'dates':[1,2,3,4],'prices':[3,2,5,1]};}
-		 			console.log(record.priceTrend);
 					res.status(200).send(record).end(); 
- 		}
+ 		}else{
+			res.status(200).send({}).end(); 
+		}
  	})
 
 }

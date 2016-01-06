@@ -93,13 +93,13 @@
                         <a href="{{list.url}}" target="_blank" ng-bind="list.title"></a>
                     </p>
 					<p>
-						<font ng-bind="list.price| currency:'￥'" class="goods_price"></font>
+						<font ng-bind="list.price | currency:'￥'" class="goods_price"></font><a ng-href="{{getDetailId(list.pid,list.website,list.ziying)}}" target="_blank" class="viewHistory">查看历史</a>
 						<font ng-class="{'1':'green right','0':'black right'}[list.instock]" ng-bind="{'1':'现货','-1':'无货'}[list.instock]"></font>
 					</p>
 					<section class="grayDescrib">
                         <p class="listSales">评论数<span ng-bind="{{list.customerreview | limitTo:5}}+'条'"></span></p>
-						<ul class="listSales" style="float:right;margin-top:-15px;"><li class="icon" style="float:right;"><div ng-class="shopName[list.website]"></div></li></ul>
-						<p class="right" ng-bind="{'1':'自营-','-1':'第三方-'}[list.ziying]"></p>
+						<p class="right"><span style="margin-left:10px;" title="{{websiteLogoTitle[list.website]}}" class="websiteLogoB" ng-class="websiteLogoBP[list.website]"></span></p>
+						<p class="right" ng-bind="{'1':'自营  --','-1':'第三方 --'}[list.ziying]"></p>
                     </section>
 					<!--section class="right">更新时间：
 					<font ng-bind="showUpdate(list.updatetime)"></font>
@@ -127,13 +127,13 @@
                 <tr ng-repeat="list in goodBlocks.items">
                  <!--    <td ng-bind="list.logo" class="logoColor"></td> -->
                     <td>
-                       <a href="{{list.url}}" target="_blank">
+                       <a ng-href="{{list.url}}" target="_blank">
                             <img ng-src="{{list.imgsrc}}" alt="" style="height:30px;">
                        </a> 
                     </td>
-                    <td><a href="{{list.url}}"  target="_blank" ng-bind="list.title| limitTo:45"></a></td>
-                    <td ng-bind="list.price | currency:'￥'" class="priceColor"></td>
-                    <td><ul style='margin-top:-15px;'><li class="icon"><div ng-class="shopName[list.website]"></div></li><ul></td>
+                    <td><a ng-href="{{list.url}}"  target="_blank" ng-bind="list.title| limitTo:45"></a></td>
+                    <td ><font ng-bind="list.price | currency:'￥'" class="priceColor"></font><a ng-href="{{getDetailId(list.pid,list.website,list.ziying)}}" target="_blank" class="viewHistory">查看历史</a></td>
+                    <td><span title="{{websiteLogoTitle[list.website]}}" class="websiteLogoB" ng-class="websiteLogoBP[list.website]"></span></td>
 					<td ng-class="{'1':'green','0':'black'}[list.instock]" ng-bind="{'1':'现货','-1':'无货'}[list.instock]"></td>
                     <td ng-bind="{'1':'自营','-1':'第三方'}[list.ziying]"></td>
                     <td ng-bind="{{list.customerreview | limitTo:5}}+'条'"></td>
@@ -143,7 +143,7 @@
         </table>
     </div>
     <div class="well" ng-show="showFeedBack">
-        <h2 class="text-center">没有结果?，点击<a href="/feedback/{{searchWords}}" target="_blank">提交反馈</a></h2>
+        <h2 class="text-center">没有结果?，点击<a ng-href="/feedback/{{searchWords}}" target="_blank">提交反馈</a></h2>
     </div>
     <!-- paging -->
     <div class="paging">

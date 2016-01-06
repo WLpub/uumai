@@ -1,10 +1,16 @@
+<div class="index_search input-group input-group-lg">
+	<input type="text" class="form-control" placeholder="搜一搜" ng-model="searchWords" ng-keypress="enterSearchWord($event)">
+	<span class="input-group-btn">
+		<button class="btn btn-primary" ng-click="goToList()" dateKeys >uu一下</button>
+	</span>
+</div>
 <div class="pageWidth container">
 	<br/>
 	<br/>
-	<div class="detail_search row">
-     <!--    <div class="col-md-4">
+	<!--div class="detail_search row">
+      <div class="col-md-4">
             <p class="logo mini_logo"><span>uumai</span> 悠悠买</p>
-        </div> -->
+        </div>
         <div class="col-md-2">
             <div class="dropdown ">
                  
@@ -18,7 +24,7 @@
                 </span>
             </div>
         </div>
-    </div>
+    </div-->
 	<br/>
 	<br/>
 	<br/>
@@ -27,22 +33,39 @@
 	   	<p class="goods_name" ng-bind="item.name"></p><br/>
 	</div>
     <div class="row">
-    	<div class="col-md-3">
+    	<div class="col-md-4">
         	<div class="thumbnail"><img ng-src="{{item.imgurl}}" alt=""></div>
+			<p class="goods_price" ng-bind="item.price|currency:'￥'"></p>
+        	<p class="goods_description" ng-bind="item.name"></p>
+        </div>
+		<div class="col-md-8">
+             <div id="container1" style="width:100%; height:400px;"></div>
         </div>
         <div class="col-md-4">
-        	<p class="goods_price" ng-bind="item.price|currency:'￥'"></p>
-        	<p class="goods_description" ng-bind="item.name"></p>
-            <p><a class="btn btn-success my-btn" ng-href="{{item.outLink}}" target="_blank"><span class="glyphicon glyphicon-send"></span>   前往</a></p>
+        	
         </div>
-        <div class="col-md-5">
+		<div class="col-md-1 col-md-offset-7">
+			<p><br/></p>
+			 <p><a class="btn btn-success my-btn" ng-href="{{item.outLink}}" target="_blank"><span class="glyphicon glyphicon-send"></span>   前往</a></p>
+		</div>
+        <!--div class="col-md-5">
 			<canvas id="line" class="chart chart-line" data="data" labels="labels" series="series"></canvas>
+        </div-->
+        
+		<div class="col-md-12">
+            <br/>
         </div>
-        <div class="col-md-12">
-             <div id="container" style="width:100%; height:400px;"></div>
+		<div class="col-md-12">
+            <br/>
+        </div>
+		<div class="col-md-12">
+            <br/>
+        </div>
+		<div class="col-md-12">
+            <br/>
         </div>
     </div>
-
+	
 	<!-- relative goods 
     <table class="table table-striped table-hover line-link">
     	<thead>
