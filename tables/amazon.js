@@ -118,8 +118,8 @@ exports.find = function (req, res){
 		 			record.imgsrc=doc.imgsrc;
 		 			record.imgurl=doc.bigimgsrc;
 		 			record.name=doc.title;
-		 			record.listprice=Number(doc.listprice ? doc.listprice.substring(1): "");
-		 			record.price=Number(doc.price ? doc.price.substring(1): "");
+		 			record.listprice=Number(doc.listprice ? doc.listprice: "");
+		 			record.price=Number(doc.price ? doc.price: "");
 		 			record.outLink=doc.url;
 		 			record.inStock=doc.inStock;
 		 			record.brand=doc.brand;
@@ -136,8 +136,13 @@ exports.find = function (req, res){
 		 			//record.directPost= doc.shiptochina=="ship to china"? "直邮":"";
 		 			//record.ziying = doc.merchantID == "ATVPDKIKX0DER" ? "自营":"";
 		 			//record.quxian = "3" ;
-		 			record.priceTrend=doc.priceTrend;
-		 			if(!!!doc.priceTrend){record.priceTrend={'dates':[1,2,3,4],'prices':[3,2,5,1]};}
+		 			record.priceTrend=[];
+		 			for	(index = 0; index < doc.pricehistory.length; index++) {
+					    record.priceTrend.push( Number(doc.pricehistory[index])   );
+					};
+
+		 			record.priceTrendtime=doc.pricehistorytime;
+		 			//if(!!!doc.priceTrend){record.priceTrend={'dates':[1,2,3,4],'prices':[3,2,5,1]};}
 					res.status(200).send(record).end(); 
  		}else{
 			res.status(200).send({}).end(); 
