@@ -115,6 +115,7 @@ exports.find = function (req, res){
  		if(doc){
 		 			var record={};
 		 			record.pid=doc._id;
+		 			// console.log(doc._id);
 		 			record.imgsrc=doc.imgsrc;
 		 			record.imgurl=doc.bigimgsrc;
 		 			record.name=doc.title;
@@ -122,7 +123,7 @@ exports.find = function (req, res){
 		 			record.price=Number(doc.price ? doc.price: "");
 		 			record.outLink=doc.url;
 		 			record.inStock=doc.inStock;
-		 			record.brand=doc.brand;
+		 			record.brand=doc.brand; 
 		 			record.ziying= doc.merchantID == "ATVPDKIKX0DER" ? "自营":"";
 		 			record.storeID=doc.storeID;
 		 			record.directPost= doc.shiptochina=="ship to china"? "直邮":"";

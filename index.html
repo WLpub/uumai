@@ -26,17 +26,27 @@
     <!-- endbuild -->
   </head>
   <body ng-app="uumaiApp">
-    <header>
+    <header  class="navbar navbar-static-top" ng-controller="HeaderCtrl">
         <div class="container">
             <div class="navbar-left">
                 <span href="/" class="header_nav header_logo">UUmai悠悠买</span>
             </div>
-            <!--
-            <div class="">
-                <a href="#/login" class="header_nav navbar-right">注册</a>
-                <a href="#/login" class="header_nav navbar-right">登陆</a>
-            </div>
-             -->
+            <ul class="nav navbar-nav navbar-right" ng-show="noUser">
+                <li>
+                    <a href="#/login" class="header_nav">登陆</a>
+                </li>
+                <li>
+                    <a href="#/register" class="header_nav">注册</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" ng-hide="noUser">
+                <li>
+                    <a href="javascript:;" class="header_nav">Hi <span ng-bind="currentUser"></span></a>
+                </li>
+                <li>
+                    <a href="javascript:;" class="header_nav" ng-click="logout()">退出</a>
+                </li>
+            </ul>
         </div>
     </header>
 
@@ -57,7 +67,7 @@
        ga('send', 'pageview');
     </script>
     -->
-        <!-- Baidu Analytics -->
+        <!-- Baidu Analytics 
         <script>
         var _hmt = _hmt || [];
         (function() {
@@ -67,7 +77,7 @@
           s.parentNode.insertBefore(hm, s);
         })();
         </script>
-
+        -->
 
     <!-- build:js(.) scripts/oldieshim.js -->
     <!--[if lt IE 9]>
@@ -87,6 +97,7 @@
         <script src="scripts/controllers/keyboard.js"></script>
         <script src="scripts/controllers/paging.js"></script>
         <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/controllers/register.js"></script>
         <script src="scripts/controllers/search.js"></script>  
         <script src="scripts/controllers/items.js"></script>
         <script src="scripts/controllers/list.js"></script>

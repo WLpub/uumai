@@ -117,6 +117,7 @@
                 <th></th>    <!--图片-->
                 <th>商品名称</th>
                 <th>价格</th>
+                <th>走势图</th>
 				<th>商城</th>
                 <th>库存</th>
                 <th>货源</th>
@@ -132,7 +133,8 @@
                        </a> 
                     </td>
                     <td><a ng-href="{{list.url}}"  target="_blank" ng-bind="list.title| limitTo:45"></a></td>
-                    <td ><font ng-bind="list.price | currency:'￥'" class="priceColor"></font><a ng-href="{{getDetailId(list.pid,list.website,list.ziying)}}" target="_blank" class="viewHistory">查看历史</a></td>
+                    <td><font ng-bind="list.price | currency:'￥'" class="priceColor"></font></td>
+                    <td><a ng-href="{{getDetailId(list.pid,list.website,list.ziying)}}" target="_blank" class="viewHistory">查看历史</a></td>
                     <td><span title="{{websiteLogoTitle[list.website]}}" class="websiteLogoB" ng-class="websiteLogoBP[list.website]"></span></td>
 					<td ng-class="{'1':'green','0':'black'}[list.instock]" ng-bind="{'1':'现货','-1':'无货'}[list.instock]"></td>
                     <td ng-bind="{'1':'自营','-1':'第三方'}[list.ziying]"></td>

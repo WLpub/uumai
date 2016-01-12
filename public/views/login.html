@@ -1,35 +1,42 @@
-<div class="login_wall">
-	<h1 class="login_logo" style="display:none;">欢迎登录<span class="logo_blueMark hidden"><img src=""></span></h1>
-	<div class="loginTable">
-		<div class="leftCon">
-			<div class="content">
-				<span class="contentTitle"></span>
-				<p class="contentDet"></p>
+<div class="loginTable">
+	<div class="login_logo">
+		<h1 style="font-size:80px;">Logo Image</h1>
+	</div>
+	<div class="alert" ng-class="{true : 'alertSuccess', false : 'alertDanger'}[isSuccess]" ng-bind="messageText"></div>
+	<div class="login_form">
+		<form id="common_login" novalidate name="loginForm">
+			<div class="form-group alignRight">
+				<a href="" class="" ng-bind="loginMethod" ng-click="changeLoginMethod()"></a>
 			</div>
-		</div>
-		<div class="form">
-			<form class="login_form" >
-				<div class="input-group input1">
-					  <input class="form-control" placeholder="用户名" type="text" required name="username" value="">
-					  <span class="input-group-addon"><span class="glyphicon glyphicon-user inputTable"></span></span>
-					</div>
-					<div class="input_gal input2"></div>
-					<div class="input-group">
-						<input class="form-control" placeholder="密码" type="password" required name="pwd">
-						<span class="input-group-addon"><span class="glyphicon glyphicon-lock inputTable"></span></span>
-					</div>
-					<a data-container="body" data-toggle="popover" data-placement="right" data-content="请拨打客服电话：xxxxxxxx" 
-				data-original-title title id="forgetPass">忘记密码？</a>
-				<input class="btn btn-primary btn-block " type="submit" value="登    　录">
-				<div class="popover-content call_tel">请拨打客服电话：xxxxxxxx</div>
-			</form>
-		</div>
+			<div class="form-group input-group">
+			  <input class="form-control" placeholder="{{usernameType}}" type="text" required name="username" value="" ng-model="userIdentity.username">
+			  <span class="input-group-addon"><span class="glyphicon glyphicon-user inputTable"></span></span>
+			</div>
+			<div class="form-group" ng-hide="needPhone">
+				<button type="" class="my-btn2 btn-default" ng-click="getTextCode()">获取短信动态码</button>
+			</div>
+			<div class="form-group input-group">
+				<input class="form-control" placeholder="密码" type="password" required name="pwd" ng-model="userIdentity.password">
+				<span class="input-group-addon"><span class="glyphicon glyphicon-lock inputTable"></span></span>
+			</div>
+			<div class="form-group alignRight">
+				<a id="forgetPassword">忘记密码？</a>
+			</div>
+			<div class="form-group">
+				<input class="btn btn-primary btn_group " type="submit" value="登    　录" ng-click="login()" ng-disabled="!loginForm.$valid">
+				<a class="btn btn-info btn_group floatRight" ng-href="#/register">注    　册</a>
+			</div>
+			<!--
+			<div class="form-group three_part">
+				<span>第三方登陆</span>
+				<ul class="three_part_login floatRight">
+					<li><a href=""><i class="fa fa-weixin green"></i>微信</a></li>
+					<li><a href=""><i class="fa fa-qq blue"></i>QQ</a></li>
+					<li><a href=""><i class="fa fa-weibo red"></i>微博</a></li>
+				</ul> 
+			</div>
+		-->
+		</form>
 	</div>
-	<!--[if lte IE 7]>
-	<div class="logoin_tips">
-		<p>您使用的浏览器版本过低, 推荐使用<a href="http://www.google.cn/intl/zh-CN/chrome/">Chrome</a>、<a href="http://www.firefox.com.cn/download/">火狐</a>浏览器以获得更佳体验！</p>
-		<div><a class="coin" href="http://www.google.cn/intl/zh-CN/chrome/"><img src="http://www.lejialife.com/admin/views/images/chrome.png" alt=""></a><a class="coin" href="http://www.firefox.com.cn/download/"><img src="http://www.lejialife.com/admin/views/images/firefox.png" alt=""></a></div>
-	</div>
-	<link type="text/css" rel="stylesheet" href="http://www.lejialife.com/admin/views/css/ie7.css">
-	<![endif]-->
+	
 </div>

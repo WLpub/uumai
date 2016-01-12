@@ -1,0 +1,99 @@
+<div class="container register_page">
+	<div class="alert" ng-class="{true:'alertSuccess', false:'alertDanger'}[isSuccess]" ng-show="showMsg" ng-bind="messageText"></div>
+	<form class="form-horizontal" name="registerForm" role="form" novalidate ng-show="registerStage">
+		<div class="form-group">
+			<label class="col-sm-3 control-label">用户名</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" name="username" value="" placeholder="必填,至少6个字符" ng-model="currentUser.username" ng-minlength=6 ng-focus required>
+			</div>
+			<!-- hidden tips -->
+			<div class="col-sm-5 form-control-static tips">
+				<span ng-show="registerForm.username.$error.minlength && !registerForm.username.$focused"><i class="fa fa-minus-circle"></i><span class="tipContent">请输入至少6位字符</span></span>
+				<span ng-show="registerForm.username.$valid && !registerForm.username.$focused"><i class="fa fa-check"></i></span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">邮箱</label>
+			<div class="col-sm-4">
+				<input type="email" class="form-control" name="email" value="" placeholder="必填" ng-model="currentUser.email" ng-focus required>
+			</div>
+			<!-- hidden tips -->
+			<div class="col-sm-5 form-control-static tips">
+				<span ng-show="registerForm.email.$error.email && !registerForm.email.$focused"><i class="fa fa-minus-circle"></i><span class="tipContent">请输入正确的邮箱格式</span></span>
+				<span ng-show="registerForm.email.$valid && !registerForm.email.$focused "><i class="fa fa-check"></i></span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">手机号</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" name="mobilePhoneNumber" value="" placeholder="必填" ng-model="currentUser.mobilePhoneNumber" ng-minlength="11" ng-maxlength="11" ng-focus required>
+			</div>
+			<!-- hidden tips -->
+			<div class="col-sm-5 form-control-static tips">
+				<span ng-show="(registerForm.mobilePhoneNumber.$error.minlength || registerForm.mobilePhoneNumber.$error.maxlength) && !registerForm.mobilePhoneNumber.$focused"><i class="fa fa-minus-circle"></i><span class="tipContent">请输入正确的11位手机号码</span></span>
+				<span ng-show="registerForm.mobilePhoneNumber.$valid && !registerForm.mobilePhoneNumber.$focused"><i class="fa fa-check"></i></span>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label">创建密码</label>
+			<div class="col-sm-4">
+				<input type="password" class="form-control" name="password" value="" placeholder="必填" ng-model="currentUser.password" ng-minlength="6" ng-focus required>
+			</div>
+			<!-- hidden tips -->
+			<div class="col-sm-5 form-control-static tips">
+				<span ng-show="registerForm.password.$error.minlength && !registerForm.password.$focused"><i class="fa fa-minus-circle"></i><span class="tipContent">请输入至少6位字符</span></span>
+				<span ng-show="registerForm.password.$valid && !registerForm.password.$focused"><i class="fa fa-check"></i></span>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label">确认密码</label>
+			<div class="col-sm-4">
+				<input type="password" class="form-control" name="passwordCertain" value="" placeholder="必填" ng-model="passwordCertain" ng-minlength="6" my-pwd-match="registerForm.password" ng-focus required>
+			</div>
+			<!-- hidden tips -->
+			<div class="col-sm-5 form-control-static tips">
+				<span ng-show="registerForm.passwordCertain.$dirty && registerForm.passwordCertain.$error.pwdmatch && !registerForm.passwordCertain.$focused"><i class="fa fa-minus-circle"></i><span class="tipContent">密码不一致</span></span>
+				<span ng-show="registerForm.passwordCertain.$valid && !registerForm.passwordCertain.$focused"><i class="fa fa-check"></i></span>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-offset-3 col-sm-8">
+				<button type="submit" class="btn btn-primary" ng-click="submitRegister()" ng-disabled="!registerForm.$valid">同意以下协议并注册</button>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-offset-3 col-sm-8">
+				<a href="#">《uumai用户协议》</a>
+			</div>
+		</div>
+	</form>
+
+	<!-- vertify smsCode -->
+	<form class="form-horizontal" name="vertifySmsCodeForm" ng-hide="registerStage">
+		<div class="form-group">
+			<div class="col-sm-offset-3 col-sm-8">
+				
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">手机短信验证码</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" name="smsCode" value="" placeholder="请输入6位验证码" ng-model="sms.codeNumber" ng-minlength="6" ng-maxlength="6" required>
+			</div>
+			
+			<div class="col-sm-5 form-control-static">
+				<button type="" class="my-btn2 btn-default" ng-click="getMSN()" ng-disabled="smsStatu">重新获取验证码</button>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-offset-3 col-sm-8">
+				<button type="submit" class="btn btn-primary" ng-click="submitVertifySmsCode()" ng-disabled="!vertifySmsCodeForm.$valid">验证手机号</button>
+			</div>
+		</div>
+	</form>
+</div>

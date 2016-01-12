@@ -3,32 +3,41 @@ header{background: #f2f2f2;color:#256EB1;}
 .header_logo{font-family: cursive;font-size: 24px;}
 .header_nav{height: 35px; line-height: 35px;display: block;padding: 0 10px;}
 /* index page */
+.main{padding-top: 30px;}
 
 /* login */
-.login_body_bg{background:#f2f2f2;}
-.login_wall{width: 900px;margin: 80px auto;}
-.login_logo{ width: 900px;color:#01859c;font-size: 30px;}
-.loginTable { background-color:white; width: 900px; margin: 90px auto;border: 5px solid #E9E7E7;overflow: hidden;}
-.leftCon {color:#337ab7;display: block;overflow:hidden; float: left; margin: 30px 30px 30px 0; width: 360px; height: 300px;}
-.content {padding: 30px; }
-.contentTitle{ font-size: 35px; text-align: left;}
-.contentDet {font-size: 25px; text-indent:50px; padding-top: 20px;}
-.form {float:right; background-color:#f2f2f2; margin: 30px;padding: 40px;width: 360px; height: 300px;}
-.form-group {margin-bottom: 15px;}
-.inputTable {color:#337ab7;}
-.input_gal {display:block; height: 30px;}
-#forgetPass {color:#337ab7; display:block; text-align: right; padding: 30px 0 10px;}
-.call_tel {display: none;}
-.logoutLink{ cursor:pointer;}
-.logo_blueMark{position:absolute;width: 120px;height: 120px;}
-.logo_blueMark img{width: 100%;margin-top: -46px;margin-left: -270px;}
-.main{overflow: hidden;padding: 30px 0;}
-.login_nav{float: right;}
-.login_nav ul{list-style: none;}
-.login_nav ul li{display: inline-block;}
-.login_nav ul li a{line-height: 50px;padding: 0 10px;}
-footer{position: absolute;bottom: 0px;width: 100%;color:#aaa;padding:20px 0; }
-footer p{text-align: center;}
+#login_method{padding:10px 0;}
+#login_method a{line-height: 22px;color:#747474;}
+#login_method i{font-size: 22px;color: #256EB1;margin-left: 5px;}
+.loginTable {width: 900px;height: 360px;margin: 40px auto;color:#747474; font-size:14px;position: relative;overflow: hidden;}
+.login_logo{float: left;}
+.login_form{position: absolute;top: 47px;bottom: 0;right: 0;background-color:#f2f2f2; margin: auto;padding:20px 40px;width: 360px;}
+.login_form .input-group-addon{background-color: #fff;}
+.btn_group{width: 45%;}
+.inputTable{color: #88B0D3;}
+.three_part{color:#aaa;font-size: 14px;padding-top: 15px;}
+.three_part span{color:#747474;line-height: 20px;}
+.three_part_login li{display: inline-block;padding:0 4px;}
+.three_part ul li a{color:#aaa;}
+.three_part ul li a i{margin-right: 2px;padding: 3px;border-radius: 50%;color: #fff;}
+.three_part ul li a:hover{text-decoration: none;}
+#forgetPassword{font-size: 12px;}
+.loginTable .alert{float: right; width: 360px;border-radius: 0;}
+.loginTable form input.ng-invalid.ng-dirty{ border:1px solid #f80;}
+.loginTable form input.ng-valid.ng-dirty{border:1px solid #39A11C;}
+
+
+/* register page */
+.register_page{margin-left: 20px;}
+.register_page form{max-width: 800px; font-size: 14px; color:#5F5F5F;}
+
+.register_page form input.ng-invalid.ng-dirty{ border:1px solid #f80;}
+.register_page form input.ng-valid.ng-dirty{border:1px solid #39A11C;}
+
+.register_page .tipContent{font-size: 12px;margin-left: 6px;color: #747474;}
+.register_page .tips i.fa-minus-circle{color:#f80;}
+.register_page .tips i.fa-check{color:green;} 
+
 
 /* search page */
 .logo_layout{padding: 60px 0;}
