@@ -16,6 +16,8 @@ app.use(express.static(path.join(__dirname,'public')));
 var amazon=require('./tables/amazon.js');
 var xueqiu=require('./tables/xueqiu.js');
 
+var chromeextservice=require('./chromeextservice/chromeextservice.js');
+
 app.get('/detail/:id',function(req,res){
 	amazon.find(req,res);
 });
@@ -23,6 +25,11 @@ app.get('/detail/:id',function(req,res){
 app.get('/list',function(req,res){
   	amazon.findAll(req,res);
 });
+
+app.get('/chromeextservice',function(req,res){
+  	chromeextservice.gethtml(req,res);
+});
+
 
 app.get('/cateList/',function(req,res){
 	//amazon.findCateList(req,res);
@@ -54,7 +61,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 app.post('/api/search', function (req, res) {   
 	// console.log(req.body);
-    var sreq = superagent.post('http://10.182.111.208:9200/uumaiproduct_index/uumaiproduct/_search').send(req.body);
+    var sreq = superagent.post('http://localhost:9200/uumaiproduct_index/uumaiproduct/_search').send(req.body);
     sreq.pipe(res);
     sreq.on('end', function(){
         //console.log('done');
