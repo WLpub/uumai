@@ -335,8 +335,11 @@
 		
 			return shopClass[shop][state];
 		};
+		// $scope.getDetailId = function(pid,website,ziying){
+		// 	return "#/detail/uumai_product_"+({'1':'amazoncn','2':'dangdang','3':'gome','4':'jd','5':'suning','6':'yhd','7':'yixun'}[website])+'_'+ziying+':'+''+''+pid.substring(1);
+		// }
 		$scope.getDetailId = function(pid,website,ziying){
-			return "#/detail/uumai_product_"+({'1':'amazoncn','2':'dangdang','3':'gome','4':'jd','5':'suning','6':'yhd','7':'yixun'}[website])+'_'+ziying+':'+''+''+pid.substring(1);
+			return "images/uumai/"+({'1':'amazoncn','2':'dangdang','3':'gome','4':'jd','5':'suning','6':'yhd','7':'yixun'}[website])+'/'+pid.substring(1) +'.png';
 		}
 		$scope.switchShop = function(name,classOld,type){
 			var length = classOld.length;
