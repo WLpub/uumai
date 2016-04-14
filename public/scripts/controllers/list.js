@@ -401,7 +401,7 @@
 		$scope.showUpdate = function(updateTime){
 			var oldDate = new Date(updateTime);
 			var today = new Date();
-			console.log(updateTime);
+			// consoles.log(updateTime);
 			var t = (today-oldDate)/60000||0;
 			if(t>1440){
 				return (parseInt(t/1440)+1)+'天前';

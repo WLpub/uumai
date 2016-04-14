@@ -39,11 +39,16 @@ exports.gethtml = function(req, res){
 		res.send(initHtml);
 	} else if (url.indexOf("amazon.cn")!=-1){
 		var productid=url.substring(url.indexOf("/dp/")+4,url.indexOf("/dp/")+14);
-		console.log(productid);
 		var initHtml= '<div><a href="http://www.uumai.net" target="_blank"><img onerror="javascript:this.style.display=\'none\'" height="210" width="560" src="http://www.uumai.net/images/uumai/amazoncn/' +productid+ '.png" alt=""></a></div>' ;
 		res.status(200);
 		res.send(initHtml);
-	} else {
+	} else if (url.indexOf("drugstore.com")!=-1){
+		var productid=url.substring(url.indexOf("qxp")+3,url.indexOf("?"));
+		// console.log(productid);
+		var initHtml= '<div><a href="http://www.uumai.net" target="_blank"><img onerror="javascript:this.style.display=\'none\'" height="210" width="560" src="http://www.uumai.net/images/uumai/drugstore/' +productid+ '.png" alt=""></a></div>' ;
+		res.status(200);
+		res.send(initHtml);
+	}  else {
 		res.status(404);
 	}
 	 

@@ -1,6 +1,6 @@
 <div class="loginTable">
 	<div class="login_logo">
-		<h1 style="font-size:80px;">Logo Image</h1>
+		<h1 style="font-size:80px;">UUmai Login</h1>
 	</div>
 	<div class="alert" ng-class="{true : 'alertSuccess', false : 'alertDanger'}[isSuccess]" ng-bind="messageText"></div>
 	<div class="login_form">
@@ -19,8 +19,8 @@
 				<input class="form-control" placeholder="密码" type="password" required name="pwd" ng-model="userIdentity.password">
 				<span class="input-group-addon"><span class="glyphicon glyphicon-lock inputTable"></span></span>
 			</div>
-			<div class="form-group alignRight">
-				<a id="forgetPassword">忘记密码？</a>
+			<div class="form-group alignRight" ng-hide="!needPhone">
+				<a id="forgetPassword" ng-click="requestPasswordReset()">忘记密码？</a>
 			</div>
 			<div class="form-group">
 				<input class="btn btn-primary btn_group " type="submit" value="登    　录" ng-click="login()" ng-disabled="!loginForm.$valid">

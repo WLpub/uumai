@@ -68,7 +68,7 @@
 		$scope.smsStatu = false;
 
 		// http header init
-		$http.defaults.headers.common['X-AVOSCloud-Application-Id'] = "ob4mro7jghfohtktipzmds0x01ur7uicrjvme7spnrtxh2b3	";
+		$http.defaults.headers.common['X-AVOSCloud-Application-Id'] = "ob4mro7jghfohtktipzmds0x01ur7uicrjvme7spnrtxh2b3";
 		$http.defaults.headers.common['X-AVOSCloud-Application-Key'] = "kp0jaoa5f0b9ayth4ceypk3r3byxbcsm1jw3bckyvnvlthwv";
 
 		//register a new user
