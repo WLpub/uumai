@@ -127,7 +127,7 @@
 				  "query":  { 
     		            "match" : { "title" : {
 	                            "query":                $scope.searchWords||$rootScope.searchWords||"",
-                    	       "minimum_should_match": "75%"
+                    	      "operator": "and"  // "minimum_should_match": "75%"
             	          }
                 	  }
             	 },
@@ -168,7 +168,7 @@
 				"query":  { 
     		            "match" : { "title" : {
 	                            "query":                $scope.searchWords||$rootScope.searchWords||"",
-                    	       "minimum_should_match": "75%"
+                    	   		"operator": "and"    //"minimum_should_match": "75%"
             	          }
                 	  }
             	 },
@@ -255,7 +255,7 @@
 						"query":  { 
 								"match" : { "title" : {
                             "query":                $rootScope.searchWords,
-                           "minimum_should_match": "80%"
+                           "operator": "and"   //"minimum_should_match": "80%"
                       		}	 
                       		}
 						},

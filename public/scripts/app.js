@@ -53,7 +53,7 @@
 		// $scope.currentUser = null;
 
 		var currentuserdata=$cookieStore.get('currentUser');
-		console.log(currentuserdata);
+		// console.log(currentuserdata);
 		if(currentuserdata!=null){
 			$scope.currentUser = currentuserdata.username;
 			$scope.noUser = false;

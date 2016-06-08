@@ -2,8 +2,8 @@ var mongojs = require("mongojs");
 
 var db_name = process.env.OPENSHIFT_APP_NAME || "mydb";
 
-var connection_string = '10.182.111.208:27017/'+ db_name;
-//var connection_string = '127.0.0.1:27017/'+ db_name;
+//var connection_string = '10.182.111.190:27017/'+ db_name;
+var connection_string = '127.0.0.1:27017/'+ db_name;
 
 // if OPENSHIFT env variables are present, use the available connection info:
 
