@@ -44,9 +44,15 @@ exports.gethtml = function(req, res){
 		res.status(200);
 		res.send(initHtml);
 	} else if (url.indexOf("drugstore.com")!=-1){
-		//console.log(url);
-		var productid=url.substring(url.indexOf("pid")+4,url.indexOf("catid")-1);
-		//console.log(productid);
+		var productid;
+		if(url.indexOf("pid")>0){
+			url=url.substring(url.indexOf("pid="),url.length-1);
+			productid=url.substring(url.indexOf("pid=")+4,url.indexOf("&"));
+		}else if(url.indexOf("/qxp")>0){
+			url=url.substring(url.indexOf("/qxp"),url.length-1);
+			productid=url.substring(url.indexOf("/qxp")+4,url.indexOf("?"));
+		}		
+		// console.log(productid);
 		var initHtml= '<div><a href="http://www.uumai.net" target="_blank"><img onerror="javascript:this.style.display=\'none\'" height="210" width="560" src="http://www.uumai.net/images/uumai/drugstore/' +productid+ '.png" alt=""></a></div>' ;
 		res.status(200);
 		res.send(initHtml);
