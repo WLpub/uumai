@@ -1,4 +1,5 @@
 exports.gethtml = function(req, res){
+
 	//console.log(req.query.traceurl);
 	var url=decodeURI(req.query.traceurl);
 	//console.log(url);
