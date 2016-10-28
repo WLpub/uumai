@@ -1,3 +1,4 @@
+var fs = require('fs');
 var express = require('express');
 var path = require('path');
 var http = require('http');
@@ -6,9 +7,17 @@ var app = express();
 var superagent = require('superagent');
 var bodyParser = require('body-parser');
 
+var https = require('https');
 
+var options = {
+   key  : fs.readFileSync('server.key'),
+   cert : fs.readFileSync('server.crt')
+};
 
 app.set('port',process.env.PORT||8080);
+
+app.set('httpsport',process.env.HTTPSPORT||8443);
+
 app.set('views',path.join(__dirname,'views'));
 
 app.use(express.static(path.join(__dirname,'public')));
@@ -73,3 +82,6 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 })
 
+https.createServer(options, app).listen(app.get('httpsport'), function () {
+   console.log('Express https server listening on port ' + app.get('httpsport'));
+});
