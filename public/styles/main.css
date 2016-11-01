@@ -67,3 +67,19 @@ p font{line-height:30px;}
 .green{color:#5cb85c;}
 .black{color:black;}
 .right{float:right;}
+
+#footer{
+    position: relative;
+    bottom: 0;
+    padding:40px 0 60px;
+    width: 100%;
+    background-color: #464646;
+    text-align:center;
+    color:#bcbcbc;
+}
+#footer a{
+    color:#bcbcbc;
+}
+#footer .copyr{
+    margin-top:2px;
+}

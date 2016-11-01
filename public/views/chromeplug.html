@@ -1,0 +1,120 @@
+<html>
+<head>
+
+    <link rel="stylesheet" href="/styles/chromeplug/reset.css">
+    <link rel="stylesheet" href="/styles/chromeplug/css.css">
+ 
+</head>
+<body>
+
+<div id="topbar">
+    <div class="boxwrap">
+        <ul class="topnav clearfix">
+            <li><a href="http://www.uumai.net" title="UUmai首页">UUmai首页</a></li>
+            <li><a href="/views/chromeplug.html" title="购物助手">购物助手</a></li>
+            <li><a href="http://www.jianshu.com/p/a29f5f519a44" title="安装指南">安装指南</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="content clearfix">
+     <!--
+    <div class="home-download" id="download">
+                <ul class="home-download-ctn clearfix">
+
+            <li class="down1">
+                <a rel="nofollow"  href="https://chrome.google.com/webstore/detail/uumai-watch-tool/fdmpdpkfdcegigllgddomjiihfljlogo?hl=zh-CN" class="btn-download" id="immediateDownload" title="Google Chrome 市场安装">
+                    <span class="browser-ico browser-ie-w"></span>
+                </a>
+            </li>
+            <li class="down2">
+                <a href="http://itunes.apple.com/cn/app/hui-hui-zhe-kou-ri-bao/id698013642?ls=1&mt=8" data-log="iphone" title="IOS版下载"><span class="browser-ico ios-w"></span></a>
+            </li>
+            <li class="down3">
+                <a href="http://codown.youdao.com/huihui/daily_app/latest/huihui_deals_latest_youdao.apk" data-log="android" title="Android版下载"><span class="browser-ico android-w"></span></a>
+            </li>
+            
+            <li class="down4">
+                扫一扫下载
+            </li>
+            
+        </ul>
+    </div>
+-->
+    <div id="pc-download">
+        <h2 class="hd">PC其他版本下载</h2>
+        <div class="bd clearfix">
+            <!--
+                                -->
+
+            <a class="icon-chrome" href="https://chrome.google.com/webstore/detail/uumai-watch-tool/fdmpdpkfdcegigllgddomjiihfljlogo?hl=zh-CN"
+               onclick="return install(event)" title="Chrome">
+                <span class="pc-icon icon-chrome"></span>
+                <em>Google Chrome 市场安装</em>
+            </a>
+            <a class="icon-chrome" href="/chrome/uumai-chrome-extension.crx"
+               onclick="return install(event)" title="Chrome">
+                <span class="pc-icon icon-chrome"></span>
+                <em>Chrome浏览器 本地下载安装</em>
+            </a>
+            <a href="/chrome/uumai-chrome-extension.crx"
+               onclick="sendlog('CLICK_BROWSER_BUTTON'); return install(event)" title="360">
+                <span class="pc-icon icon-360"></span>
+                <em>360浏览器</em>
+            </a>
+            <a class="icon-360chrome" href="/chrome/uumai-chrome-extension.crx"
+               onclick="sendlog('CLICK_BROWSER_BUTTON'); return install(event)" title="360极速">
+                <span class="pc-icon icon-360chrome"></span>
+                <em>360极速浏览器</em>
+            </a>
+            <a class="icon-safari"
+                onclick="sendlog('CLICK_BROWSER_BUTTON'); return install(event)" title="Safari">
+                <span class="pc-icon icon-safari"></span>
+                <em>Safari浏览器(开发中)</em>
+            </a>
+            <a  
+               onclick="sendlog('CLICK_BROWSER_BUTTON'); return install(event)" title="IE">
+                <span class="pc-icon icon-ie"></span>
+                <em>IE浏览器(开发中)</em>
+            </a>
+            <a class="icon-sogou"  target="_blank"
+               onclick="sendlog('CLICK_BROWSER_BUTTON'); return install(event)" title="Sogou">
+                <span class="pc-icon icon-sogou"></span>
+                <em>搜狗浏览器(开发中)</em>
+            </a>
+            <a class="icon-liebao" href="/chrome/uumai-chrome-extension.crx"
+               onclick="sendlog('CLICK_BROWSER_BUTTON'); return install(event)" title="猎豹">
+                <span class="pc-icon icon-liebao"></span>
+                <em>猎豹浏览器</em>
+            </a>
+            <a class="icon-firefox" title="Firefox"  
+               onclick="sendlog('CLICK_BROWSER_BUTTON'); return install(event)">
+                <span class="pc-icon icon-firefox"></span>
+                <em>火狐浏览器(开发中)</em>
+            </a>
+            <a class="icon-maxthon"  
+               onclick="sendlog('CLICK_BROWSER_BUTTON'); return install(event)" title="Maxthon">
+                <span class="pc-icon icon-maxthon"></span>
+                <em>遨游浏览器(开发中)</em>
+            </a>
+            <a href="/chrome/uumai-chrome-extension.crx" class="icon-opera" title="opera">
+                <span class="pc-icon icon-opera"></span>
+                <em>Opera浏览器</em>
+            </a>
+        </div>
+    </div>
+
+</div>
+<div id="footer">
+    <p>
+        <a href="http://www.uudata.net" target="_blank">关于我们</a>
+        <span class="sp">|</span>
+        <a href="http://www.uudata.net/contact.html" target="_blank">联系我们</a>
+        <span class="sp">|</span>
+        <a href="http://www.uudata.net/FAQ.html" target="_blank">帮助</a>
+    </p>
+    <p class="copyr">&copy; 2016 UUmai 沪ICP备14043959号-1</p>
+</div>
+ 
+</body>
+</html>
