@@ -27,7 +27,7 @@
 			}
  			$rootScope.searchprdidurl = $scope.searchprdidurl;
 			//alert($scope.searchprdidurl);
- 			$window.open("/chromeextservice?traceurl="+$scope.searchprdidurl, '_blank');
+ 			$window.open("/chromeextserviceui?traceurl="+$scope.searchprdidurl, '_blank');
 		};
 		$scope.enterSearchHistory = function(event){
 			if(event.keyCode !== 13) return;

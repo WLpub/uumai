@@ -26,6 +26,7 @@ var amazon=require('./tables/amazon.js');
 var xueqiu=require('./tables/xueqiu.js');
 
 var chromeextservice=require('./chromeextservice/chromeextservice.js');
+var chromeextservice_ui=require('./chromeextservice/chromeextservice_ui.js');
 
 app.get('/detail/:id',function(req,res){
 	amazon.find(req,res);
@@ -37,6 +38,10 @@ app.get('/list',function(req,res){
 
 app.get('/chromeextservice',function(req,res){
   	chromeextservice.gethtml(req,res);
+});
+
+app.get('/chromeextserviceui',function(req,res){
+  	chromeextservice_ui.gethtml(req,res);
 });
 
 
