@@ -4,11 +4,28 @@
 	</div>
 
 	<div class="index_search input-group input-group-lg">
+		<input type="text" class="form-control" placeholder="输入产品url" ng-model="searchprdidurl" ng-keypress="enterSearchHistory($event)">
+		<span class="input-group-btn">
+			<button class="btn btn-primary" ng-click="goToHistory()" dateKeys >查看价格历史</button>
+		</span>
+	</div>
+
+	<div class="index_search input-group input-group-lg">
+		<label >例如 :	http://item.jd.com/1398976.html</label>
+		<label></label>
+	</div>
+
+	<div class="index_search input-group input-group-lg">
+		<label></label>
+	</div>
+
+	<div class="index_search input-group input-group-lg">
 		<input type="text" class="form-control" placeholder="搜一搜" ng-model="searchWords" ng-keypress="enterSearchWord($event)">
 		<span class="input-group-btn">
 			<button class="btn btn-primary" ng-click="goToList()" dateKeys >uu一下</button>
 		</span>
 	</div>
+
 	<div class="shop_nav">
 		<ul>
 			<li><a href=""><img src="/images/101.png" alt=""></a></li>
