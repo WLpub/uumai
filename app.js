@@ -22,20 +22,35 @@ app.set('views',path.join(__dirname,'views'));
 
 app.use(express.static(path.join(__dirname,'public')));
 
-var amazon=require('./tables/amazon.js');
-var xueqiu=require('./tables/xueqiu.js');
+//var amazon=require('./tables/amazon.js');
+//var xueqiu=require('./tables/xueqiu.js');
+var jdcategory=require('./tables/jdcategory.js');
+var jdproduct=require('./tables/jdproduct.js');
 
 var chromeextservice=require('./chromeextservice/chromeextservice.js');
 var chromeextservice_ui=require('./chromeextservice/chromeextservice_ui.js');
 
-app.get('/detail/:id',function(req,res){
-	amazon.find(req,res);
-});
+// app.get('/detail/:id',function(req,res){
+// 	amazon.find(req,res);
+// });
  
-app.get('/list',function(req,res){
-  	amazon.findAll(req,res);
+// app.get('/list',function(req,res){
+//   	amazon.findAll(req,res);
+// });
+
+//jd
+app.get('/jd/cateList/',function(req,res){
+  res.status(200).send([{'name':'category1'},{'name':'category2'}]).end();
+  // jdcategory.findAll(req,res);
 });
 
+app.get('/jd/productList/:category',function(req,res){
+  res.status(200).send([{'name':'xxxx','category':'category1'},{'name':'aaa','category':'category1'}]).end();
+  // jdproduct.findByCategory(req,res);
+});
+
+
+//chrome plugin
 app.get('/chromeextservice',function(req,res){
   	chromeextservice.gethtml(req,res);
 });
@@ -44,16 +59,10 @@ app.get('/chromeextserviceui',function(req,res){
   	chromeextservice_ui.gethtml(req,res);
 });
 
-
-app.get('/cateList/',function(req,res){
-	//amazon.findCateList(req,res);
-	res.status(200).send([{'name':'电脑','count':10},{'name':'mac','count':1000}]).end();
-});
-
-app.get('/shopList/',function(req,res){
-	//amazon.findshopList(req,res);
-	res.status(200).send(['JD','taobao','amazon','apple','suning']).end();
-});
+// app.get('/shopList/',function(req,res){
+// 	//amazon.findshopList(req,res);
+// 	res.status(200).send(['JD','taobao','amazon','apple','suning']).end();
+// });
   
 app.get('/feedback/:word',function(req,res){
 	var sys = require('sys'); 
@@ -65,9 +74,9 @@ app.get('/',function(req,res){
 	res.sendFile(path.join(__dirname,'/index.html'));
 });
 
-app.get('/uudata',function(req,res){
-	res.sendFile(path.join(__dirname,'/uudata/index.html'));
-});
+// app.get('/uudata',function(req,res){
+// 	res.sendFile(path.join(__dirname,'/uudata/index.html'));
+// });
 
 
 app.use(bodyParser.json());
@@ -80,6 +89,26 @@ app.post('/api/search', function (req, res) {
     sreq.on('end', function(){
         //console.log('done');
     });
+});
+
+app.use(function(req, res, next){
+  res.status(404);
+
+  // respond with html page
+  if (req.accepts('html')) {
+    //res.render('404', { url: req.url });
+    res.sendFile(__dirname + '/404.html');
+    return;
+  }
+
+  // respond with json
+  if (req.accepts('json')) {
+    res.send({ error: 'Not found' });
+    return;
+  }
+
+  // default to plain-text. send()
+  res.type('txt').send('Not found');
 });
 
 
