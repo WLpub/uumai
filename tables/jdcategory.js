@@ -8,13 +8,14 @@ var table = db.collection("uumai_ui_jd_category");
 exports.findAll = function(req, res , next){
 	res.setHeader('Access-Control-Allow-Origin','*');
 	table.find().limit(100).sort({postedOn : -1} , function(err , success){
-		console.log('Response success '+success);
-		console.log('Response error '+err);
+		// console.log('Response success '+success);
+		// console.log('Response error '+err);
 		if(success){
-			res.send(200 , success);
-			return next();
+			res.status(200).json(success);
+			// res.send(200 , success);
+			//return next();
 		}else{
-			return next(err);
+			//return next(err);
 		}
 		
 	});
@@ -24,13 +25,14 @@ exports.findAll = function(req, res , next){
 exports.find = function (req, res , next){
 	res.setHeader('Access-Control-Allow-Origin','*');
 	table.findOne({_id:mongojs.ObjectId(req.params.id)} , function(err , success){
-		console.log('Response success '+success);
-		console.log('Response error '+err);
+		// console.log('Response success '+success);
+		// console.log('Response error '+err);
 		if(success){
-			res.send(200 , success);
-			return next();
+			res.status(200).send(success);
+			// res.send(200 , success);
+			// return next();
 		}
-		return next(err);
+		// return next(err);
 	})
 }
 
