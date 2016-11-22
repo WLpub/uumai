@@ -40,13 +40,13 @@ var chromeextservice_ui=require('./chromeextservice/chromeextservice_ui.js');
 
 //jd
 app.get('/jd/cateList/',function(req,res){
-  res.status(200).send([{'name':'category1'},{'name':'category2'}]).end();
-  // jdcategory.findAll(req,res);
+  //res.status(200).send([{'name':'category1'},{'name':'category2'}]).end();
+   jdcategory.findAll(req,res);
 });
 
 app.get('/jd/productList/:category',function(req,res){
-  res.status(200).send([{'name':'xxxx','category':'category1'},{'name':'aaa','category':'category1'}]).end();
-  // jdproduct.findByCategory(req,res);
+  //res.status(200).send([{'name':'xxxx','category':'category1'},{'name':'aaa','category':'category1'}]).end();
+   jdproduct.findByCategory(req,res);
 });
 
 
