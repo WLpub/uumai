@@ -239,6 +239,8 @@
 				and.push({ "terms": { "ziying": [1] }});
 			}
 			if(!!!$scope.lowFilter){
+				
+			}else{
 				and.push({ "terms": { "instock": [1] }});
 			}
 			if(website.length>0){
