@@ -125,7 +125,7 @@
 			}
 			var para = {
 				  "query":  { 
-    		            "match" : { "title" : {
+    		            "match" : { "title.cn" : {
 	                            "query":                $scope.searchWords||$rootScope.searchWords||"",
                     	      "operator": "and"  // "minimum_should_match": "75%"
             	          }
@@ -166,7 +166,7 @@
 			}
 			var para = {
 				"query":  { 
-    		            "match" : { "title" : {
+    		            "match" : { "title.cn" : {
 	                            "query":                $scope.searchWords||$rootScope.searchWords||"",
                     	   		"operator": "and"    //"minimum_should_match": "75%"
             	          }
@@ -253,7 +253,7 @@
  				  "query": {
 					"filtered": {
 						"query":  { 
-								"match" : { "title" : {
+								"match" : { "title.cn" : {
                             "query":                $rootScope.searchWords,
                            "operator": "and"   //"minimum_should_match": "80%"
                       		}	 
