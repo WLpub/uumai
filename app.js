@@ -74,6 +74,10 @@ app.get('/',function(req,res){
 	res.sendFile(path.join(__dirname,'/index.html'));
 });
 
+app.get('/tree',function(req,res){
+  res.sendFile(path.join(__dirname,'/tree.html'));
+});
+
 // app.get('/uudata',function(req,res){
 // 	res.sendFile(path.join(__dirname,'/uudata/index.html'));
 // });
